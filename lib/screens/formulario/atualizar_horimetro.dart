@@ -13,7 +13,7 @@ class FormularioAtualizarHorimetro extends StatefulWidget{
 
 class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorimetro> with TickerProviderStateMixin {
 
-  final TextEditingController _nameController = TextEditingController();
+  //final TextEditingController _nameController = TextEditingController();
   final TextEditingController _accountNumberController =
   TextEditingController();
   String dropdownValue = 'Tanque';
@@ -137,7 +137,7 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                       child: RaisedButton(
                         child: Text('Salvar'),
                         onPressed: () {
-                          debugPrint("Horímetro atualizado ");
+                          debugPrint("Horímetro atualizado");
                           //final String name = _nameController.text;
                           //final int accountNumber = int.tryParse(_accountNumberController.text);
                           //final Contact newContact = Contact(0, name, accountNumber);
