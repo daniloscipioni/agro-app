@@ -132,15 +132,7 @@ class BavarescoApp extends StatelessWidget {
               .copyWith(secondary: Colors.white), // Text color
         ),
       ),
-      home: Main(),
-    );
-  }
-}
-
-class Main extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListaMaquinas(),
+      home: ListaMaquinas(),
     );
   }
 }

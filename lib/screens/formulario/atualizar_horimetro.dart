@@ -23,30 +23,8 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Atualizar Horimetro'),
-        actions: <Widget>[
-          Builder(builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.sync),
-              onPressed: () {
-                print('Atualizando ');
-                final snackBar = SnackBar(
-                  content: Text('Sincronizando Banco de Dados!'),
-                  action: SnackBarAction(
-                    label: 'Desfazer',
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                );
-
-                // Find the Scaffold in the widget tree and use
-                // it to show a SnackBar.
-                Scaffold.of(context).showSnackBar(snackBar);
-              },
-            );
-          })
-        ],
+        title: Text('Atualização de Horímetro'),
+        centerTitle: true,
       ),
       body: Column(
         children: [
