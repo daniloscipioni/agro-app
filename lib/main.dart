@@ -1,7 +1,10 @@
 import 'package:bavaresco/database/machine_dao.dart';
+import 'package:bavaresco/database/machine_historico_dao.dart';
+import 'package:bavaresco/models/historico/historic_type.dart';
 import 'package:bavaresco/models/maquina/category.dart';
 import 'package:bavaresco/models/maquina/manufacturer.dart';
 import 'package:bavaresco/models/maquina/model.dart';
+import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:bavaresco/screens/lista/maquina.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +14,11 @@ import 'models/maquina/machine.dart';
 void main() {
   runApp(BavarescoApp());
   // //
-  //   MachineDao _dao  = MachineDao();
-  // // //
+  //    MachineDao _dao  = MachineDao();
+  //    MachineHistoricoDao _historicoDao = MachineHistoricoDao();
+  //
+  //
+  // // // //
   // _dao.saveCategory(Category(1, 'Trator'));
   // _dao.saveCategory(Category(2, 'Colheitadeira'));
   // _dao.saveCategory(Category(3, 'Plantadeira'));
@@ -35,13 +41,13 @@ void main() {
   // _dao.saveManufacturer(Manufacturer(14, 'Jan'));
   // _dao.saveManufacturer(Manufacturer(15, 'Jumil'));
   // _dao.saveManufacturer(Manufacturer(16, 'MP Agro'));
-  //
-  // //
-  // //
-  // //
-  // //
   // //
   // // //
+  // // //
+  // // //
+  // // //
+  // // //
+  // // // //
   // _dao.saveModel(Model(1,9,'2600'));
   // _dao.saveModel(Model(2,10,'88'));
   // _dao.saveModel(Model(3,10,'1180'));
@@ -68,11 +74,11 @@ void main() {
   // _dao.saveModel(Model(24,14,'Jan 20.000'));
   // _dao.saveModel(Model(25,15,'FERT PRECISA 6M3'));
   // _dao.saveModel(Model(26,16,'MP AGRO'));
-  // //
-  // //
-  // //_dao.saveMachine(Machine( 'TR1', 1999,'S522122154R-78','54545461','580', 150.000, 350 ,1, 2, 2 ));
-  // //_dao.saveMachine(Machine( 'JD1', 2005,'ASD879875646F-85','881120','458', 250.000, 270 ,1, 2, 3 ));
-  // //_dao.saveMachine(Machine( 'TR2', 2008,'ZZZKJLAKSDJFLI-33','9985','774', 748.000, 290 ,1, 2, 3 ));
+  // // //
+  // // //
+  // // //_dao.saveMachine(Machine( 'TR1', 1999,'S522122154R-78','54545461','580', 150.000, 350 ,1, 2, 2 ));
+  // // //_dao.saveMachine(Machine( 'JD1', 2005,'ASD879875646F-85','881120','458', 250.000, 270 ,1, 2, 3 ));
+  // // //_dao.saveMachine(Machine( 'TR2', 2008,'ZZZKJLAKSDJFLI-33','9985','774', 748.000, 290 ,1, 2, 3 ));
   // _dao.saveMachine(Machine('TR-1',1986,'Serie 264',null,null,20000,null,1,9,1));
   // _dao.saveMachine(Machine('TR-10',1986,'',null,null,25000,null,1,10,2));
   // _dao.saveMachine(Machine('TR-11',1991,'114000044',null,null,35000,null,1,10,3));
@@ -115,6 +121,11 @@ void main() {
   // _dao.saveMachine(Machine('IM-15',2018,'2018/5075061',null,null,120000,null,5,15,25));
   // _dao.saveMachine(Machine('IM-3',2016,'HEA-BF10009',null,null,100000,null,5,8,23));
   // _dao.saveMachine(Machine('IM-4',0,' ',null,null,350000,null,5,16,26));
+  //
+  // _historicoDao.saveTipoApontamento(HistoricType(1, 'Abastecimento'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
+  // _historicoDao.saveTipoApontamento(HistoricType(2, 'Atualização Horímetro'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
+  // _historicoDao.saveTipoApontamento(HistoricType(3, 'Apontamento de Defeito'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
+
 }
 
 class BavarescoApp extends StatelessWidget {

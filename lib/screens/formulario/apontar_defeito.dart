@@ -26,6 +26,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
         title: Text('Apontamento de Defeitos',),
         centerTitle: true,
       ),
+
       body: Column(
         children: [
         //  Card(

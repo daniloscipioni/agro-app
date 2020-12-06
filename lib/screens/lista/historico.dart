@@ -1,5 +1,7 @@
+import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/menu/menu.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
+import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
 
 class ListaHistoricoMaquina extends StatefulWidget {
@@ -13,9 +15,8 @@ class ListaHistoricoMaquina extends StatefulWidget {
 
 class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
     with TickerProviderStateMixin {
-
   final String _title = "Histórico";
-
+  MachineHistoricoDao _historicoDao = MachineHistoricoDao();
 
   @override
   Widget build(BuildContext context) {
@@ -144,30 +145,71 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
             ),
           ),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.all(8.0),
+            child: Scaffold(
+              // child: Container(
+              // padding: EdgeInsets.all(8.0),
               //height: 200,
               //width: 350,
               //color: Colors.green,
-              child: ListView(
-                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  cardHistoricoUnidade(),
-                  cardHistoricoUnidade(),
-                  cardHistoricoUnidade(),
-                  cardHistoricoUnidade(),
-                  cardHistoricoUnidade(),
-                  cardHistoricoUnidade(),
-                  cardHistoricoUnidade(),
-                ],
+              body: FutureBuilder<List<TipoApontamentoRepository>>(
+                initialData: List(),
+                //Traz as máquinas do banco local
+                future: _historicoDao.findAllTipoApontamento(),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      break;
+                    case ConnectionState.waiting:
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            CircularProgressIndicator(),
+                            Text('Loading')
+                          ],
+                        ),
+                      );
+                      break;
+                    case ConnectionState.active:
+                      break;
+                    case ConnectionState.done:
+                      final List<TipoApontamentoRepository> tiposApontamento =
+                          snapshot.data;
+
+                      return ListView.builder(
+                        itemBuilder: (context, index) {
+                          final TipoApontamentoRepository tipoApontamento =
+                              tiposApontamento[index];
+                          return _cardHistoricoUnidade(tipoApontamento);
+                        },
+                        itemCount: tiposApontamento.length,
+                      );
+                      break;
+                  }
+                  return Text('Unknown error');
+                },
               ),
             ),
+            //   child: ListView(
+            //   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   //crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     cardHistoricoUnidade(),
+            //     cardHistoricoUnidade(),
+            //     cardHistoricoUnidade(),
+            //     cardHistoricoUnidade(),
+            //     cardHistoricoUnidade(),
+            //     cardHistoricoUnidade(),
+            //     cardHistoricoUnidade(),
+            //   ],
+            // ),
           ),
+          //),
+          //),
         ],
       ),
-      floatingActionButton:
-      buildSpeedDial(context, widget.machine),
+      floatingActionButton: buildSpeedDial(context, widget.machine),
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(
       //     Icons.add,
@@ -182,11 +224,12 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
   }
 }
 
+class _cardHistoricoUnidade extends StatelessWidget {
 
-class cardHistoricoUnidade extends StatelessWidget {
-  const cardHistoricoUnidade({
-    Key key,
-  }) : super(key: key);
+  final TipoApontamentoRepository tipoApontamento;
+
+
+  _cardHistoricoUnidade(this.tipoApontamento);
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +244,7 @@ class cardHistoricoUnidade extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                child: _infoHistorico(),
+                child: _infoHistorico(tipoApontamento),
               )
             ],
           ),
@@ -212,9 +255,12 @@ class cardHistoricoUnidade extends StatelessWidget {
 }
 
 class _infoHistorico extends StatelessWidget {
-  const _infoHistorico({
-    Key key,
-  }) : super(key: key);
+
+  final TipoApontamentoRepository tipoApontamento;
+
+
+  _infoHistorico(this.tipoApontamento);
+
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +271,7 @@ class _infoHistorico extends StatelessWidget {
         children: <Widget>[
           Column(
             children: [
-              Text("Abastecimento - 21/11/2020 20:38"),
+              Text(this.tipoApontamento.description),
             ],
           ),
           Text(
@@ -246,4 +292,6 @@ class _infoHistorico extends StatelessWidget {
       ),
     );
   }
+
+
 }
