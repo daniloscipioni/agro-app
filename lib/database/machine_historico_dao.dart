@@ -1,9 +1,11 @@
 import 'package:bavaresco/database/app_database.dart';
+import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/models/historico/historic_type.dart';
 import 'package:bavaresco/models/maquina/category.dart';
 import 'package:bavaresco/models/maquina/machine.dart';
 import 'package:bavaresco/models/maquina/manufacturer.dart';
 import 'package:bavaresco/models/maquina/model.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
@@ -12,34 +14,53 @@ import 'package:sqflite/sqlite_api.dart';
 class MachineHistoricoDao {
   static const String _id = 'id';
 
+  static const String _tableMaquina = 'machines';
+
   static const String _tableTipoApontamento = 'tipo_apontamento';
-  static const String _tableHistoricoMaquina = 'categories';
+  static const String _tableApontamentoMaquina = 'historico_maquina';
 
   static const String _description = 'description';
 
-  // static const String _categoryName = 'category_name';
-  // static const String _manufacturerName = 'manufacturer_name';
-  // static const String _yearManufacture = 'year_manufacture';
-  // static const String _serieNumber = 'serie_number';
-  // static const String _motor = 'motor';
-  // static const String _power = 'power';
-  // static const String _value = 'value';
-  // static const String _fuelTank = 'fuel_tank';
+  static const String _infoTanque = 'info_tanque';
+  static const String _abastecimentoQtde = 'abastecimento_qtde';
+  static const String _hrmetroAtualAbastecimento = 'hrmtro_atual_abastecimento';
+  static const String _hrmetroAtualizacao = 'htmetro_atualizacao';
+  static const String _aptoDefeitoTipo = 'apto_defeito_tipo';
+  static const String _aptoDefeitoObs = 'apto_defeito_obs';
 
-  // static const String _idMachineManufacturer = 'id_manufacturer';
-  // static const String _idMachineCategory = 'id_category';
-  // static const String _idModel = 'id_model';
+  static const String _idHistoricType = 'id_hitoric_type';
+  static const String _user = 'user';
+  static const String _date = 'date';
 
-  //static const String _modelName = 'model_name';
+
+
+  static const String _idMachine = 'id_machine';
+
 
   static const String tableTipoApontamento =
       'CREATE TABLE $_tableTipoApontamento('
       '$_id INTEGER PRIMARY KEY, '
       '$_description TEXT '
-      // 'FOREIGN KEY($_idMachineManufacturer) REFERENCES $_tableFabricante($_id), '
-      // 'FOREIGN KEY($_idMachineCategory) REFERENCES $_tableCategoria($_id),'
-      // 'FOREIGN KEY($_idModel) REFERENCES $_tableModelo($_id) '
       ')';
+
+  static const String tableApontamentoMaquina =
+      'CREATE TABLE $_tableApontamentoMaquina('
+      '$_id INTEGER PRIMARY KEY, '
+      '$_idMachine INTEGER, '
+      '$_idHistoricType INTEGER, '
+      '$_user STRING, '
+      '$_date DATE'
+      '$_infoTanque STRING, '
+      '$_aptoDefeitoTipo STRING, '
+      '$_abastecimentoQtde DOUBLE, '
+      '$_hrmetroAtualAbastecimento INTEGER, '
+      '$_hrmetroAtualizacao INTEGER, '
+      '$_aptoDefeitoObs TEXT '
+      'FOREIGN KEY($_idMachine) REFERENCES $_tableMaquina($_id), '
+      'FOREIGN KEY($_idHistoricType) REFERENCES $_tableTipoApontamento($_id)'
+      ')';
+
+
 
   Future<int> saveTipoApontamento(HistoricType tipoApontamento) async {
     final Database db = await getDatabase();
@@ -48,11 +69,35 @@ class MachineHistoricoDao {
     return db.insert(_tableTipoApontamento, tipoApontamentoMap);
   }
 
+  Future<int> saveApontamentoMaquina(HistoricInfo infoApontamento) async {
+    final Database db = await getDatabase();
+    Map<String, dynamic> infoApontamentoMap =
+    _toMapInfoApontamento(infoApontamento);
+    return db.insert(_tableTipoApontamento, infoApontamentoMap);
+  }
+
   Map<String, dynamic> _toMapTipoApontamento(HistoricType tipoApontamento) {
     final Map<String, dynamic> tipoApontamentoMap = Map();
     tipoApontamentoMap[_id] = tipoApontamento.id;
     tipoApontamentoMap[_description] = tipoApontamento.historicName;
     return tipoApontamentoMap;
+  }
+
+  Map<String, dynamic> _toMapInfoApontamento(HistoricInfo infoApontamento) {
+    final Map<String, dynamic> infoApontamentoMap = Map();
+    infoApontamentoMap[_id] = infoApontamento.id;
+    infoApontamentoMap[_idMachine] = infoApontamento.idMachine;
+    infoApontamentoMap[_idHistoricType] = infoApontamento.idHistoricType;
+    infoApontamentoMap[_user] = infoApontamento.user;
+    infoApontamentoMap[_date] = infoApontamento.date;
+    infoApontamentoMap[_infoTanque] = infoApontamento.infoTanque;
+    infoApontamentoMap[_aptoDefeitoTipo] = infoApontamento.aptoDefeitoTipo;
+    infoApontamentoMap[_abastecimentoQtde] = infoApontamento.abastecimentoQtde;
+    infoApontamentoMap[_hrmetroAtualAbastecimento] = infoApontamento.hrmetroAtualAbastecimento;
+    infoApontamentoMap[_hrmetroAtualizacao] = infoApontamento.hrmetroAtualizacao;
+    infoApontamentoMap[_aptoDefeitoObs] = infoApontamento.aptoDefeitoObs;
+
+    return infoApontamentoMap;
   }
 
   Future<List<HistoricType>> findAll() async {
@@ -69,11 +114,34 @@ class MachineHistoricoDao {
         '$_id,'
         ' $_description'
         ' FROM $_tableTipoApontamento '
-        // 'join $_tableFabricante on $_tableMaquina.$_idMachineManufacturer = $_tableFabricante.$_id '
-        // 'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel'
         );
 
     List<TipoApontamentoRepository> machines = toListTipoApontamento(result);
+
+    return machines;
+  }
+
+
+  Future<List<InfoApontamentoRepository>> findAllInfoApontamento() async {
+    final Database db = await getDatabase();
+    final List<Map<String, dynamic>> result = await db.rawQuery('SELECT '
+        '$_id,'
+        ' $_description, '
+        '$_id, '
+        '$_idMachine, '
+        '$_idHistoricType, '
+        '$_user, '
+        '$_date, '
+        '$_infoTanque, '
+        '$_aptoDefeitoTipo, '
+        '$_abastecimentoQtde, '
+        '$_hrmetroAtualAbastecimento, '
+        '$_hrmetroAtualizacao, '
+        '$_aptoDefeitoObs, '
+        ' FROM $_tableApontamentoMaquina '
+    );
+
+    List<InfoApontamentoRepository> machines = toListInfoApontamento(result);
 
     return machines;
   }
@@ -109,5 +177,32 @@ class MachineHistoricoDao {
     }
 
     return tiposApontamento;
+  }
+
+  //Lista os campos descritos
+  List<InfoApontamentoRepository> toListInfoApontamento(
+      List<Map<String, dynamic>> result) {
+    final List<InfoApontamentoRepository> infosApontamento = List();
+
+    for (Map<String, dynamic> row in result) {
+      final InfoApontamentoRepository infoApontamento =
+      InfoApontamentoRepository(
+          row[_id],
+          row[_description],
+          row[_idMachine],
+          row[_idHistoricType],
+          row[_user],
+          row[_date],
+          row[_infoTanque],
+          row[_aptoDefeitoTipo],
+          row[_abastecimentoQtde],
+          row[_hrmetroAtualAbastecimento],
+          row[_hrmetroAtualizacao],
+          row[_aptoDefeitoObs]
+      );
+      infosApontamento.add(infoApontamento);
+    }
+
+    return infosApontamento;
   }
 }
