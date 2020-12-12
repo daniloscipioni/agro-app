@@ -1,5 +1,5 @@
 class InfoApontamentoRepository {
-  int _id;
+ // int _id;
   String _description;
   int _idHistoricType;
   int _idMachine;
@@ -12,11 +12,11 @@ class InfoApontamentoRepository {
   int _hrmetroAtualizacao;
   String _aptoDefeitoObs;
 
-  int get id => _id;
-
-  set id(int value) {
-    _id = value;
-  }
+  // int get id => _id;
+  //
+  // set id(int value) {
+  //   _id = value;
+  // }
 
   String get description => _description;
 
@@ -79,7 +79,7 @@ class InfoApontamentoRepository {
   }
 
   InfoApontamentoRepository(
-      this._id,
+     // this._id,
       this._description,
       this._idHistoricType,
       this._idMachine,

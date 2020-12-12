@@ -18,7 +18,7 @@ void main() {
   runApp(BavarescoApp());
 
   //  MachineDao _dao  = MachineDao();
-  //  MachineHistoricoDao _historicoDao = MachineHistoricoDao();
+    MachineHistoricoDao _historicoDao = MachineHistoricoDao();
   // //
   // _dao.saveCategory(Category(1, 'Trator'));
   // _dao.saveCategory(Category(2, 'Colheitadeira'));
@@ -117,12 +117,13 @@ void main() {
   // _historicoDao.saveTipoApontamento(HistoricType(2, 'Atualização Horímetro'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
   // _historicoDao.saveTipoApontamento(HistoricType(3, 'Apontamento de Defeito'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
   //
-  //  DateTime now = DateTime.now();
+   DateTime now = DateTime.now();
   //
   //  _historicoDao.saveApontamentoMaquina(HistoricInfo(1, 1, 2, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave'));
   // _historicoDao.saveApontamentoMaquina(HistoricInfo(2, 1, 2, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave'));
   //  // _historicoDao.saveApontamentoMaquina(HistoricInfo(4, 1, 2, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave')).then((id) => _historicoDao.findAllInfoApontamento().then((historicInfo) => debugPrint(historicInfo.toString())));
-
+  //_historicoDao.saveApontamentoMaquina(HistoricInfo( 3, 4, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave'));
+  //_historicoDao.saveApontamentoMaquina(HistoricInfo( 2, 4, 'Danilo Eduardo',now.toIso8601String(), null, null, null, null, 350000, null));
 }
 
 class BavarescoApp extends StatelessWidget {

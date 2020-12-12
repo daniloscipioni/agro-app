@@ -1,5 +1,5 @@
 class HistoricInfo {
-  final int id;
+ // final int id;
   final int idHistoricType;
   final int idMachine;
   final String user;
@@ -12,7 +12,7 @@ class HistoricInfo {
   final String aptoDefeitoObs;
 
   HistoricInfo(
-      this.id,
+      //this.id,
       this.idHistoricType,
       this.idMachine,
       this.user,

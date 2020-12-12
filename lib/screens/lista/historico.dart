@@ -155,7 +155,7 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
               body: FutureBuilder<List<InfoApontamentoRepository>>(
                 initialData: List(),
                 //Traz as máquinas do banco local
-                future: _historicoDao.findAllInfoApontamento(),
+                future: _historicoDao.findAllInfoApontamentoByMachine(widget.machine.id),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -272,22 +272,39 @@ class _infoHistorico extends StatelessWidget {
         children: <Widget>[
           Column(
             children: [
-              Text(this.infoApontamento.user),
+              Text(this.infoApontamento.description),
             ],
           ),
           Text(
-            'Horimetro: 4.500h',
+            'Horimetro:' + this.infoApontamento.hrmetroAtualizacao.toString() + 'h',
             style: const TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
             ),
           ),
           Text(
-            'Funcionário: Danilo',
+            'Funcionário: ' + this.infoApontamento.user,
             style: const TextStyle(
               fontSize: 12.0,
               color: Colors.black87,
             ),
+          ),
+
+          Text(
+            'Data: ' + this.infoApontamento.date,
+            style: const TextStyle(
+              fontSize: 12.0,
+              color: Colors.black87,
+            ),
+          ),
+          Text(
+
+            this.infoApontamento.aptoDefeitoTipo != null?'Defeito: ' + this.infoApontamento.aptoDefeitoTipo:'',
+    style: const TextStyle(
+    fontSize: 12.0,
+    color: Colors.black87,
+    ),
+
           ),
         ],
       ),

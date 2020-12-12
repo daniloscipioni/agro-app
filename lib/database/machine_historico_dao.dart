@@ -85,7 +85,7 @@ class MachineHistoricoDao {
 
   Map<String, dynamic> _toMapInfoApontamento(HistoricInfo infoApontamento) {
     final Map<String, dynamic> infoApontamentoMap = Map();
-    infoApontamentoMap[_id] = infoApontamento.id;
+    //infoApontamentoMap[_id] = infoApontamento.id;
     infoApontamentoMap[_idMachine] = infoApontamento.idMachine;
     infoApontamentoMap[_idHistoricType] = infoApontamento.idHistoricType;
     infoApontamentoMap[_user] = infoApontamento.user;
@@ -121,11 +121,10 @@ class MachineHistoricoDao {
     return machines;
   }
 
-
+  //Lista todos os apontamentos
   Future<List<InfoApontamentoRepository>> findAllInfoApontamento() async {
     final Database db = await getDatabase();
     final List<Map<String, dynamic>> result = await db.rawQuery('SELECT '
-        '$_id,'
         '$_id, '
         '$_idMachine, '
         '$_idHistoricType, '
@@ -140,12 +139,38 @@ class MachineHistoricoDao {
         ' FROM $_tableApontamentoMaquina '
     );
 
-    List<InfoApontamentoRepository> machines = toListInfoApontamento(result);
+    List<InfoApontamentoRepository> apontamentos = toListInfoApontamento(result);
 
-    return machines;
+    return apontamentos;
   }
 
-  //Lista toda a tabela
+  //Lista todos os apontamentos por máquina
+  Future<List<InfoApontamentoRepository>> findAllInfoApontamentoByMachine(int idMachine) async {
+    final Database db = await getDatabase();
+    final List<Map<String, dynamic>> result = await db.rawQuery('SELECT '
+        '$_tableApontamentoMaquina.$_id, '
+        '$_tableApontamentoMaquina.$_idMachine, '
+        '$_tableTipoApontamento.$_description, '
+        '$_idHistoricType, '
+        '$_user, '
+        '$_date, '
+        '$_infoTanque, '
+        '$_aptoDefeitoTipo, '
+        '$_abastecimentoQtde, '
+        '$_hrmetroAtualAbastecimento, '
+        '$_hrmetroAtualizacao, '
+        '$_aptoDefeitoObs '
+        ' FROM $_tableApontamentoMaquina '
+        ' JOIN $_tableTipoApontamento on $_tableTipoApontamento.$_id = $_tableApontamentoMaquina.$_idHistoricType '
+        'WHERE $_idMachine = $idMachine'
+    );
+
+    List<InfoApontamentoRepository> apontamentos = toListInfoApontamento(result);
+
+    return apontamentos;
+  }
+
+  //Lista toda a tabela tipo de apontamento
   List<HistoricType> toList(List<Map<String, dynamic>> result) {
     final List<HistoricType> tiposApontamento = List();
     debugPrint(result.toString());
@@ -186,7 +211,7 @@ class MachineHistoricoDao {
     for (Map<String, dynamic> row in result) {
       final InfoApontamentoRepository infoApontamento =
       InfoApontamentoRepository(
-          row[_id],
+         // row[_id],
           row[_description],
           row[_idMachine],
           row[_idHistoricType],
