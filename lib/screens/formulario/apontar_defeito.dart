@@ -1,4 +1,7 @@
+import 'package:bavaresco/database/machine_historico_dao.dart';
+import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
+import 'package:bavaresco/screens/lista/historico.dart';
 import 'package:flutter/material.dart';
 
 class FormularioApontarDefeito extends StatefulWidget{
@@ -13,10 +16,9 @@ class FormularioApontarDefeito extends StatefulWidget{
 
 class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> with TickerProviderStateMixin {
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _accountNumberController =
-  TextEditingController();
-  String dropdownValue = 'Tipo de defeito';
+  MachineHistoricoDao _historicoDao = MachineHistoricoDao();
+  final TextEditingController _defeitoObservacaoController =   TextEditingController();
+  String tipoDefeitoDropdownValue = 'Tipo de defeito';
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
               child: ListView(
                 children: <Widget>[
                   DropdownButton<String>(
-                    value: dropdownValue,
+                    value: tipoDefeitoDropdownValue,
                     icon: Icon(Icons.arrow_downward),
                     itemHeight: 60,
                     iconSize: 24,
@@ -111,7 +113,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                     ),
                     onChanged: (String newValue) {
                       setState(() {
-                        dropdownValue = newValue;
+                        tipoDefeitoDropdownValue = newValue;
                       });
                     },
                     items: <String>['Tipo de defeito','Defeito Mecânico', 'Defeito Elétrico','Defeito Hidráulico', 'Defeito Pneus', 'Outros']
@@ -125,7 +127,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextField(
-                      controller: _accountNumberController,
+                      controller: _defeitoObservacaoController,
                       decoration: InputDecoration(
                         labelText: 'Observações',
                       ),
@@ -140,6 +142,10 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                       child: RaisedButton(
                         child: Text('Salvar'),
                         onPressed: () {
+                          debugPrint(_defeitoObservacaoController.text);
+                          debugPrint(tipoDefeitoDropdownValue);
+                          _historicoDao.saveApontamentoMaquina(HistoricInfo( 3, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), null, tipoDefeitoDropdownValue, null, null, null, _defeitoObservacaoController.text));
+                          Navigator.of(context).pop();
                           debugPrint("Defeito apontado com sucesso!");
                           //final String name = _nameController.text;
                           //final int accountNumber = int.tryParse(_accountNumberController.text);

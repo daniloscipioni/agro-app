@@ -1,4 +1,7 @@
+import 'package:bavaresco/database/machine_historico_dao.dart';
+import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
+import 'package:bavaresco/screens/lista/historico.dart';
 import 'package:flutter/material.dart';
 
 class FormularioAbastecer extends StatefulWidget{
@@ -13,10 +16,10 @@ class FormularioAbastecer extends StatefulWidget{
 
 class _formularioAbastecerState extends State<FormularioAbastecer> with TickerProviderStateMixin {
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _accountNumberController =
-  TextEditingController();
-  String dropdownValue = 'Tanque';
+  MachineHistoricoDao _historicoDao = MachineHistoricoDao();
+  final TextEditingController _quantidadeController = TextEditingController();
+  final TextEditingController _horimetroAtualController =  TextEditingController();
+  String tanqueDropdownValue = 'Tanque';
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
               child: ListView(
                 children: <Widget>[
                   DropdownButton<String>(
-                    value: dropdownValue,
+                    value: tanqueDropdownValue,
                     icon: Icon(Icons.arrow_downward),
                     itemHeight: 60,
                     iconSize: 24,
@@ -110,7 +113,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                     ),
                     onChanged: (String newValue) {
                       setState(() {
-                        dropdownValue = newValue;
+                        tanqueDropdownValue = newValue;
                       });
                     },
                     items: <String>['Tanque','Tanque 1', 'Tanque 2','Tanque 3']
@@ -122,7 +125,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                     }).toList(),
                   ),
                   TextField(
-                    controller: _nameController,
+                    controller: _quantidadeController,
                     decoration: InputDecoration(
                       labelText: 'Quantidade',
                     ),
@@ -132,7 +135,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextField(
-                      controller: _accountNumberController,
+                      controller: _horimetroAtualController,
                       decoration: InputDecoration(
                         labelText: 'Horímetro Atual',
                       ),
@@ -147,7 +150,13 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                       child: RaisedButton(
                         child: Text('Salvar'),
                         onPressed: () {
+                          debugPrint(tanqueDropdownValue);
+                          debugPrint(_quantidadeController.text);
+                          debugPrint(_horimetroAtualController.text);
+                          _historicoDao.saveApontamentoMaquina(HistoricInfo( 1, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), tanqueDropdownValue, null, double.tryParse(_quantidadeController.text), int.tryParse(_quantidadeController.text), null, null));
+
                           debugPrint("Abastecimento Salvo");
+                          Navigator.of(context).pop();
                           //final String name = _nameController.text;
                           //final int accountNumber = int.tryParse(_accountNumberController.text);
                           //final Contact newContact = Contact(0, name, accountNumber);

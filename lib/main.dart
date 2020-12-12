@@ -10,6 +10,7 @@ import 'package:bavaresco/models/maquina/model.dart';
 import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:bavaresco/screens/lista/maquina.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'database/app_database.dart';
 import 'models/maquina/machine.dart';
@@ -130,6 +131,11 @@ class BavarescoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
       theme: ThemeData(
         primaryColor: Colors.green,
         accentColor: Colors.greenAccent[700],

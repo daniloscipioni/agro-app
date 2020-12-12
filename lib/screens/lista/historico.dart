@@ -155,7 +155,8 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
               body: FutureBuilder<List<InfoApontamentoRepository>>(
                 initialData: List(),
                 //Traz as máquinas do banco local
-                future: _historicoDao.findAllInfoApontamentoByMachine(widget.machine.id),
+                future: _historicoDao
+                    .findAllInfoApontamentoByMachine(widget.machine.id),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -226,9 +227,7 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
 }
 
 class _cardHistoricoUnidade extends StatelessWidget {
-
   final InfoApontamentoRepository infoApontamento;
-
 
   _cardHistoricoUnidade(this.infoApontamento);
 
@@ -256,12 +255,9 @@ class _cardHistoricoUnidade extends StatelessWidget {
 }
 
 class _infoHistorico extends StatelessWidget {
-
   final InfoApontamentoRepository infoApontamento;
 
-
   _infoHistorico(this.infoApontamento);
-
 
   @override
   Widget build(BuildContext context) {
@@ -275,8 +271,11 @@ class _infoHistorico extends StatelessWidget {
               Text(this.infoApontamento.description),
             ],
           ),
+          if (this.infoApontamento.hrmetroAtualizacao != null)
           Text(
-            'Horimetro:' + this.infoApontamento.hrmetroAtualizacao.toString() + 'h',
+            'Horimetro:' +
+                this.infoApontamento.hrmetroAtualizacao.toString() +
+                'h',
             style: const TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
@@ -289,7 +288,6 @@ class _infoHistorico extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
-
           Text(
             'Data: ' + this.infoApontamento.date,
             style: const TextStyle(
@@ -297,19 +295,16 @@ class _infoHistorico extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
-          Text(
-
-            this.infoApontamento.aptoDefeitoTipo != null?'Defeito: ' + this.infoApontamento.aptoDefeitoTipo:'',
-    style: const TextStyle(
-    fontSize: 12.0,
-    color: Colors.black87,
-    ),
-
-          ),
+          if (this.infoApontamento.aptoDefeitoTipo != null)
+            Text(
+              'Defeito: ' + this.infoApontamento.aptoDefeitoTipo,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
+            ),
         ],
       ),
     );
   }
-
-
 }

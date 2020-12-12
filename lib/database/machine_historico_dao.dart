@@ -162,7 +162,8 @@ class MachineHistoricoDao {
         '$_aptoDefeitoObs '
         ' FROM $_tableApontamentoMaquina '
         ' JOIN $_tableTipoApontamento on $_tableTipoApontamento.$_id = $_tableApontamentoMaquina.$_idHistoricType '
-        'WHERE $_idMachine = $idMachine'
+        'WHERE $_idMachine = $idMachine '
+        'ORDER BY $_date desc'
     );
 
     List<InfoApontamentoRepository> apontamentos = toListInfoApontamento(result);

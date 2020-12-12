@@ -1,5 +1,9 @@
+import 'package:bavaresco/database/machine_historico_dao.dart';
+import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
+import 'package:bavaresco/screens/lista/historico.dart';
 import 'package:flutter/material.dart';
+
 
 class FormularioAtualizarHorimetro extends StatefulWidget{
 
@@ -13,10 +17,9 @@ class FormularioAtualizarHorimetro extends StatefulWidget{
 
 class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorimetro> with TickerProviderStateMixin {
 
-  //final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _accountNumberController =
-  TextEditingController();
-  String dropdownValue = 'Tanque';
+  MachineHistoricoDao _historicoDao = MachineHistoricoDao();
+
+  final TextEditingController _horimetroController =   TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +103,7 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TextField(
-                      controller: _accountNumberController,
+                      controller: _horimetroController,
                       decoration: InputDecoration(
                         labelText: 'Horímetro Atual',
                       ),
@@ -115,6 +118,11 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                       child: RaisedButton(
                         child: Text('Salvar'),
                         onPressed: () {
+                          debugPrint(_horimetroController.text);
+                          _historicoDao.saveApontamentoMaquina(HistoricInfo( 2, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), null, null, null, null, int.tryParse(_horimetroController.text), null));
+
+                          Navigator.of(context).pop();
+
                           debugPrint("Horímetro atualizado");
                           //final String name = _nameController.text;
                           //final int accountNumber = int.tryParse(_accountNumberController.text);

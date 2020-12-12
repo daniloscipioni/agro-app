@@ -35,14 +35,14 @@ SpeedDial buildSpeedDial(BuildContext context, MachineRepository machine) {
     curve: Curves.bounceIn,
     children: [
 
-      SpeedDialChild(
-        child: Icon(Icons.filter_alt, color: Colors.white),
-        backgroundColor: Colors.grey,
-        onTap: () => print('THIRD CHILD'),
-        // label:'Filtrar Histórico',
-        // labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        // labelBackgroundColor: Colors.green,
-      ),
+      // SpeedDialChild(
+      //   child: Icon(Icons.filter_alt, color: Colors.white),
+      //   backgroundColor: Colors.grey,
+      //   onTap: () => print('THIRD CHILD'),
+      //   // label:'Filtrar Histórico',
+      //   // labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //   // labelBackgroundColor: Colors.green,
+      // ),
       SpeedDialChild(
         child: Icon(Icons.local_gas_station, color: Colors.white),
         backgroundColor: Colors.grey,
