@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bavaresco/database/machine_dao.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
+import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/models/historico/historic_type.dart';
 import 'package:bavaresco/models/maquina/category.dart';
 import 'package:bavaresco/models/maquina/manufacturer.dart';
@@ -13,18 +16,16 @@ import 'models/maquina/machine.dart';
 
 void main() {
   runApp(BavarescoApp());
+
+  //  MachineDao _dao  = MachineDao();
+  //  MachineHistoricoDao _historicoDao = MachineHistoricoDao();
   // //
-  //    MachineDao _dao  = MachineDao();
-  //    MachineHistoricoDao _historicoDao = MachineHistoricoDao();
-  //
-  //
-  // // // //
   // _dao.saveCategory(Category(1, 'Trator'));
   // _dao.saveCategory(Category(2, 'Colheitadeira'));
   // _dao.saveCategory(Category(3, 'Plantadeira'));
   // _dao.saveCategory(Category(4, 'Pulverizador'));
   // _dao.saveCategory(Category(5, 'Implemento'));
-  // // //
+  //
   // _dao.saveManufacturer(Manufacturer(1, 'Valtra'));
   // _dao.saveManufacturer(Manufacturer(2, 'John Deere'));
   // _dao.saveManufacturer(Manufacturer(3, 'Fiatalis'));
@@ -41,13 +42,7 @@ void main() {
   // _dao.saveManufacturer(Manufacturer(14, 'Jan'));
   // _dao.saveManufacturer(Manufacturer(15, 'Jumil'));
   // _dao.saveManufacturer(Manufacturer(16, 'MP Agro'));
-  // //
-  // // //
-  // // //
-  // // //
-  // // //
-  // // //
-  // // // //
+  //
   // _dao.saveModel(Model(1,9,'2600'));
   // _dao.saveModel(Model(2,10,'88'));
   // _dao.saveModel(Model(3,10,'1180'));
@@ -74,11 +69,7 @@ void main() {
   // _dao.saveModel(Model(24,14,'Jan 20.000'));
   // _dao.saveModel(Model(25,15,'FERT PRECISA 6M3'));
   // _dao.saveModel(Model(26,16,'MP AGRO'));
-  // // //
-  // // //
-  // // //_dao.saveMachine(Machine( 'TR1', 1999,'S522122154R-78','54545461','580', 150.000, 350 ,1, 2, 2 ));
-  // // //_dao.saveMachine(Machine( 'JD1', 2005,'ASD879875646F-85','881120','458', 250.000, 270 ,1, 2, 3 ));
-  // // //_dao.saveMachine(Machine( 'TR2', 2008,'ZZZKJLAKSDJFLI-33','9985','774', 748.000, 290 ,1, 2, 3 ));
+  //
   // _dao.saveMachine(Machine('TR-1',1986,'Serie 264',null,null,20000,null,1,9,1));
   // _dao.saveMachine(Machine('TR-10',1986,'',null,null,25000,null,1,10,2));
   // _dao.saveMachine(Machine('TR-11',1991,'114000044',null,null,35000,null,1,10,3));
@@ -125,6 +116,12 @@ void main() {
   // _historicoDao.saveTipoApontamento(HistoricType(1, 'Abastecimento'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
   // _historicoDao.saveTipoApontamento(HistoricType(2, 'Atualização Horímetro'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
   // _historicoDao.saveTipoApontamento(HistoricType(3, 'Apontamento de Defeito'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
+  //
+  //  DateTime now = DateTime.now();
+  //
+  //  _historicoDao.saveApontamentoMaquina(HistoricInfo(1, 1, 2, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave'));
+  // _historicoDao.saveApontamentoMaquina(HistoricInfo(2, 1, 2, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave'));
+  //  // _historicoDao.saveApontamentoMaquina(HistoricInfo(4, 1, 2, 'Danilo',now.toIso8601String(), 'Tanque 1', 'Defeito Mecânico', 305.00, 350000, 350000, 'Defeito Mecânico Grave')).then((id) => _historicoDao.findAllInfoApontamento().then((historicInfo) => debugPrint(historicInfo.toString())));
 
 }
 

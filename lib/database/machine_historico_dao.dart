@@ -49,13 +49,13 @@ class MachineHistoricoDao {
       '$_idMachine INTEGER, '
       '$_idHistoricType INTEGER, '
       '$_user STRING, '
-      '$_date DATE'
+      '$_date DATE, '
       '$_infoTanque STRING, '
       '$_aptoDefeitoTipo STRING, '
       '$_abastecimentoQtde DOUBLE, '
       '$_hrmetroAtualAbastecimento INTEGER, '
       '$_hrmetroAtualizacao INTEGER, '
-      '$_aptoDefeitoObs TEXT '
+      '$_aptoDefeitoObs TEXT, '
       'FOREIGN KEY($_idMachine) REFERENCES $_tableMaquina($_id), '
       'FOREIGN KEY($_idHistoricType) REFERENCES $_tableTipoApontamento($_id)'
       ')';
@@ -73,7 +73,7 @@ class MachineHistoricoDao {
     final Database db = await getDatabase();
     Map<String, dynamic> infoApontamentoMap =
     _toMapInfoApontamento(infoApontamento);
-    return db.insert(_tableTipoApontamento, infoApontamentoMap);
+    return db.insert(_tableApontamentoMaquina, infoApontamentoMap);
   }
 
   Map<String, dynamic> _toMapTipoApontamento(HistoricType tipoApontamento) {
@@ -126,7 +126,6 @@ class MachineHistoricoDao {
     final Database db = await getDatabase();
     final List<Map<String, dynamic>> result = await db.rawQuery('SELECT '
         '$_id,'
-        ' $_description, '
         '$_id, '
         '$_idMachine, '
         '$_idHistoricType, '
@@ -137,7 +136,7 @@ class MachineHistoricoDao {
         '$_abastecimentoQtde, '
         '$_hrmetroAtualAbastecimento, '
         '$_hrmetroAtualizacao, '
-        '$_aptoDefeitoObs, '
+        '$_aptoDefeitoObs '
         ' FROM $_tableApontamentoMaquina '
     );
 

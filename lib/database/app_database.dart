@@ -15,6 +15,7 @@ Future<Database> getDatabase() async {
           db.execute(MachineDao.tableFabricante);
           db.execute(MachineDao.tableModelo);
           db.execute(MachineHistoricoDao.tableTipoApontamento);
+          db.execute(MachineHistoricoDao.tableApontamentoMaquina);
         },
         version: 1,
         onDowngrade: onDatabaseDowngradeDelete,

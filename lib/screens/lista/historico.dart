@@ -1,5 +1,6 @@
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/menu/menu.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
@@ -151,10 +152,10 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
               //height: 200,
               //width: 350,
               //color: Colors.green,
-              body: FutureBuilder<List<TipoApontamentoRepository>>(
+              body: FutureBuilder<List<InfoApontamentoRepository>>(
                 initialData: List(),
                 //Traz as máquinas do banco local
-                future: _historicoDao.findAllTipoApontamento(),
+                future: _historicoDao.findAllInfoApontamento(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -174,16 +175,16 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
                     case ConnectionState.active:
                       break;
                     case ConnectionState.done:
-                      final List<TipoApontamentoRepository> tiposApontamento =
+                      final List<InfoApontamentoRepository> infosApontamento =
                           snapshot.data;
 
                       return ListView.builder(
                         itemBuilder: (context, index) {
-                          final TipoApontamentoRepository tipoApontamento =
-                              tiposApontamento[index];
-                          return _cardHistoricoUnidade(tipoApontamento);
+                          final InfoApontamentoRepository infoApontamento =
+                              infosApontamento[index];
+                          return _cardHistoricoUnidade(infoApontamento);
                         },
-                        itemCount: tiposApontamento.length,
+                        itemCount: infosApontamento.length,
                       );
                       break;
                   }
@@ -226,10 +227,10 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
 
 class _cardHistoricoUnidade extends StatelessWidget {
 
-  final TipoApontamentoRepository tipoApontamento;
+  final InfoApontamentoRepository infoApontamento;
 
 
-  _cardHistoricoUnidade(this.tipoApontamento);
+  _cardHistoricoUnidade(this.infoApontamento);
 
   @override
   Widget build(BuildContext context) {
@@ -244,7 +245,7 @@ class _cardHistoricoUnidade extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                child: _infoHistorico(tipoApontamento),
+                child: _infoHistorico(infoApontamento),
               )
             ],
           ),
@@ -256,10 +257,10 @@ class _cardHistoricoUnidade extends StatelessWidget {
 
 class _infoHistorico extends StatelessWidget {
 
-  final TipoApontamentoRepository tipoApontamento;
+  final InfoApontamentoRepository infoApontamento;
 
 
-  _infoHistorico(this.tipoApontamento);
+  _infoHistorico(this.infoApontamento);
 
 
   @override
@@ -271,7 +272,7 @@ class _infoHistorico extends StatelessWidget {
         children: <Widget>[
           Column(
             children: [
-              Text(this.tipoApontamento.description),
+              Text(this.infoApontamento.user),
             ],
           ),
           Text(
