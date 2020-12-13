@@ -3,7 +3,7 @@ class HistoricInfo {
   final int idHistoricType;
   final int idMachine;
   final String user;
-  final String date;
+  final int date;
   final String infoTanque;
   final String aptoDefeitoTipo;
   final double abastecimentoQtde;

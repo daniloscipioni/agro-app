@@ -1,3 +1,4 @@
+import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
@@ -145,7 +146,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                           debugPrint(_defeitoObservacaoController.text);
                           debugPrint(tipoDefeitoDropdownValue);
                           _historicoDao.saveApontamentoMaquina(
-                              HistoricInfo( 3, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), null, tipoDefeitoDropdownValue, null, null, null, _defeitoObservacaoController.text)
+                              HistoricInfo( 3, widget.machine.id, 'Danilo Eduardo',DateTime.now().millisecondsSinceEpoch, null, tipoDefeitoDropdownValue, null, null, null, _defeitoObservacaoController.text)
                           ).then((value) => Navigator.pop(context));
                           //Navigator.of(context).pop();
                           debugPrint("Defeito apontado com sucesso!");

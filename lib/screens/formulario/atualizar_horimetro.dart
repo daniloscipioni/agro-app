@@ -1,3 +1,4 @@
+import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
@@ -106,8 +107,9 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                       controller: _horimetroController,
                       decoration: InputDecoration(
                         labelText: 'Horímetro Atual',
+                        hintText: '0'
                       ),
-                      style: TextStyle(fontSize: 12.0),
+                      style: TextStyle(fontSize: 16.0),
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -120,7 +122,7 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                         onPressed: () {
                           debugPrint(_horimetroController.text);
                           _historicoDao.saveApontamentoMaquina(
-                              HistoricInfo( 2, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), null, null, null, null, int.tryParse(_horimetroController.text), null)
+                              HistoricInfo( 2, widget.machine.id, 'Danilo Eduardo',DateTime.now().millisecondsSinceEpoch, null, null, null, null, int.tryParse(_horimetroController.text), null)
                           ).then((value) => Navigator.pop(context));
 
                           //Navigator.of(context).pop();

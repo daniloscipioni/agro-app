@@ -4,7 +4,7 @@ class InfoApontamentoRepository {
   int _idHistoricType;
   int _idMachine;
   String _user;
-  String date;
+  int date;
   String _infoTanque;
   String _aptoDefeitoTipo;
   double _abastecimentoQtde;

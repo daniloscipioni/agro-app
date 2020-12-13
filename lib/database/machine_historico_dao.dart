@@ -49,7 +49,7 @@ class MachineHistoricoDao {
       '$_idMachine INTEGER, '
       '$_idHistoricType INTEGER, '
       '$_user STRING, '
-      '$_date DATE, '
+      '$_date INTEGER, '
       '$_infoTanque STRING, '
       '$_aptoDefeitoTipo STRING, '
       '$_abastecimentoQtde DOUBLE, '

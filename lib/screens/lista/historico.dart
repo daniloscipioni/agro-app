@@ -1,10 +1,11 @@
+import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/menu/menu.dart';
 import 'package:bavaresco/repository/machineInfoApontamentoRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 class ListaHistoricoMaquina extends StatefulWidget {
   final MachineRepository machine;
 
@@ -16,6 +17,7 @@ class ListaHistoricoMaquina extends StatefulWidget {
 
 class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
     with TickerProviderStateMixin {
+  //final oCcy = new NumberFormat("#.##", "pt_BR");
   final String _title = "Histórico";
   MachineHistoricoDao _historicoDao = MachineHistoricoDao();
 
@@ -89,24 +91,33 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
                                               .toString(),
                                       maxLines: 1,
                                     ),
+                                    if( widget.machine.serialNumber != null)
                                     Text(
-                                      'Motor:  ' +
-                                          widget.machine.motor.toString(),
+                                      'Número de série:  ' +
+                                          widget.machine.serialNumber
+                                              .toString(),
                                       maxLines: 1,
                                     ),
+                                    // Text(
+                                    //   'Motor:  ' +
+                                    //       widget.machine.motor.toString(),
+                                    //   maxLines: 1,
+                                    // ),
+                                    // Text(
+                                    //   'Potência:  ' +
+                                    //       widget.machine.power.toString(),
+                                    //   maxLines: 1,
+                                    // ),
                                     Text(
-                                      'Potência:  ' +
-                                          widget.machine.power.toString(),
+                                      'Valor: '  +
+                                    NumberFormat.currency(locale: 'pt', symbol: 'R\$').format(widget.machine.value),
+
                                       maxLines: 1,
                                     ),
-                                    Text(
-                                      'Valor:  ' +
-                                          widget.machine.value.toString(),
-                                      maxLines: 1,
-                                    ),
+                                    if (widget.machine.motorized != 0)
                                     Text(
                                       'Tanque Diesel:  ' +
-                                          widget.machine.fuelTank.toString(),
+                                          widget.machine.tankCapacity.toString(),
                                       maxLines: 1,
                                     ),
                                   ],
@@ -339,7 +350,7 @@ class _infoHistorico extends StatelessWidget {
             ),
           if (this.infoApontamento.date != null)
             Text(
-              'Data: ' + this.infoApontamento.date,
+              'Data: ' + dataAtual(this.infoApontamento.date).toString(),
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,

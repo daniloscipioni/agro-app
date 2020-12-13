@@ -36,7 +36,7 @@ class MachineRepository {
   }
 
   String mainTitle(){
-    return '$_id - $_machineName - $_machineManufacturer - $_machineModel' ;
+    return '$_machineName - $_machineManufacturer - $_machineModel' ;
   }
 
   double get tankCapacity => _tankCapacity;

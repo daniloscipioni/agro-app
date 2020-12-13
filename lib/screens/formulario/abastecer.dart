@@ -1,3 +1,4 @@
+import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
@@ -163,7 +164,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                           debugPrint(_quantidadeController.text);
                           debugPrint(_horimetroAtualController.text);
                           _historicoDao.saveApontamentoMaquina(
-                              HistoricInfo( 1, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), tanqueDropdownValue, null, double.tryParse(_quantidadeController.text), int.tryParse(_quantidadeController.text), null, null)
+                              HistoricInfo( 1, widget.machine.id, 'Danilo Eduardo', DateTime.now().millisecondsSinceEpoch, tanqueDropdownValue, null, double.tryParse(_quantidadeController.text), int.tryParse(_quantidadeController.text), null, null)
                           ).then((value) => Navigator.pop(context));
 
                           debugPrint("Abastecimento Salvo");
