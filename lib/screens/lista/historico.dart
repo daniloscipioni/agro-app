@@ -281,23 +281,65 @@ class _infoHistorico extends StatelessWidget {
               color: Colors.black54,
             ),
           ),
-          Text(
-            'Funcionário: ' + this.infoApontamento.user,
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: Colors.black87,
+          if (this.infoApontamento.infoTanque != null)
+            Text(
+              'Tanque: ' + this.infoApontamento.infoTanque,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
             ),
-          ),
-          Text(
-            'Data: ' + this.infoApontamento.date,
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: Colors.black87,
+          if (this.infoApontamento.abastecimentoQtde != null)
+            Text(
+              'Qtde Abastecida: ' + this.infoApontamento.abastecimentoQtde.toString(),
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
             ),
-          ),
+          if (this.infoApontamento.hrmetroAtualAbastecimento != null)
+            Text(
+              'Horimetro Abastecimento: ' + this.infoApontamento.hrmetroAtualAbastecimento.toString(),
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
+            ),
+          if (this.infoApontamento.hrmetroAtualizacao != null)
+            Text(
+              'Horimetro atualizado: ' + this.infoApontamento.hrmetroAtualizacao.toString(),
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
+            ),
           if (this.infoApontamento.aptoDefeitoTipo != null)
             Text(
               'Defeito: ' + this.infoApontamento.aptoDefeitoTipo,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
+            ),
+          if (this.infoApontamento.aptoDefeitoObs != null)
+            Text(
+              'Observação: ' + this.infoApontamento.aptoDefeitoObs,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
+            ),
+          if (this.infoApontamento.user != null)
+            Text(
+              'Funcionário: ' + this.infoApontamento.user,
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black87,
+              ),
+            ),
+          if (this.infoApontamento.date != null)
+            Text(
+              'Data: ' + this.infoApontamento.date,
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,

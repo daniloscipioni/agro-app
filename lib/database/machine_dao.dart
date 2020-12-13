@@ -25,6 +25,10 @@ class MachineDao {
   static const String _value = 'value';
   static const String _fuelTank = 'fuel_tank';
 
+  static const String _motorized = 'motorized';
+  static const String _fuelType = 'fuel_type';
+  static const String _tankCapacity = 'tank_capacity';
+
   static const String _idMachineManufacturer = 'id_manufacturer';
   static const String _idMachineCategory = 'id_category';
   static const String _idModel = 'id_model';
@@ -59,6 +63,9 @@ class MachineDao {
       '$_id INTEGER PRIMARY KEY,'
       '$_idMachineManufacturer INTEGER, '
       '$_modelName TEXT, '
+      '$_motorized INTEGER, '
+      '$_fuelType TEXT, '
+      '$_tankCapacity DOUBLE, '
       'FOREIGN KEY($_idMachineManufacturer) REFERENCES $_tableFabricante($_id))';
 
   Future<int> saveMachine(Machine machine) async {
@@ -119,6 +126,10 @@ class MachineDao {
     final Map<String, dynamic> modelMap = Map();
     modelMap[_idMachineManufacturer] = model.idMachineManufacturer;
     modelMap[_modelName] = model.modelName;
+    modelMap[_motorized] = model.motorized;
+    modelMap[_fuelType] = model.fuelType;
+    modelMap[_tankCapacity] = model.tankCapacity;
+
     return modelMap;
   }
 
@@ -141,7 +152,10 @@ class MachineDao {
         ' $_value,'
         ' $_fuelTank,'
         ' $_manufacturerName, '
-        ' $_modelName  '
+        ' $_modelName,  '
+        ' $_motorized, '
+        ' $_fuelType, '
+        ' $_tankCapacity '
         'FROM $_tableMaquina '
         'join $_tableFabricante on $_tableMaquina.$_idMachineManufacturer = $_tableFabricante.$_id '
         'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel');
@@ -188,7 +202,11 @@ class MachineDao {
           row[_value],
           row[_fuelTank],
           row[_manufacturerName],
-          row[_modelName]);
+          row[_modelName],
+          row[_motorized],
+          row[_fuelType],
+          row[_tankCapacity]
+      );
       machines.add(machine);
     }
 

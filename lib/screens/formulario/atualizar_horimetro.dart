@@ -119,9 +119,11 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                         child: Text('Salvar'),
                         onPressed: () {
                           debugPrint(_horimetroController.text);
-                          _historicoDao.saveApontamentoMaquina(HistoricInfo( 2, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), null, null, null, null, int.tryParse(_horimetroController.text), null));
+                          _historicoDao.saveApontamentoMaquina(
+                              HistoricInfo( 2, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), null, null, null, null, int.tryParse(_horimetroController.text), null)
+                          ).then((value) => Navigator.pop(context));
 
-                          Navigator.of(context).pop();
+                          //Navigator.of(context).pop();
 
                           debugPrint("Horímetro atualizado");
                           //final String name = _nameController.text;

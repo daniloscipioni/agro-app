@@ -62,6 +62,15 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                                         fontSize: 20,
                                       ),
                                     ),
+                                    if(widget.machine.fuelType != null)
+                                    Text(
+                                      'Abaster com: ' + widget.machine.fuelType,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -153,10 +162,12 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                           debugPrint(tanqueDropdownValue);
                           debugPrint(_quantidadeController.text);
                           debugPrint(_horimetroAtualController.text);
-                          _historicoDao.saveApontamentoMaquina(HistoricInfo( 1, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), tanqueDropdownValue, null, double.tryParse(_quantidadeController.text), int.tryParse(_quantidadeController.text), null, null));
+                          _historicoDao.saveApontamentoMaquina(
+                              HistoricInfo( 1, widget.machine.id, 'Danilo Eduardo',DateTime.now().toIso8601String(), tanqueDropdownValue, null, double.tryParse(_quantidadeController.text), int.tryParse(_quantidadeController.text), null, null)
+                          ).then((value) => Navigator.pop(context));
 
                           debugPrint("Abastecimento Salvo");
-                          Navigator.of(context).pop();
+                          //Navigator.of(context).pop();
                           //final String name = _nameController.text;
                           //final int accountNumber = int.tryParse(_accountNumberController.text);
                           //final Contact newContact = Contact(0, name, accountNumber);
