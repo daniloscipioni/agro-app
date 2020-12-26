@@ -1,4 +1,5 @@
 import 'package:bavaresco/components/data_atual.dart';
+import 'package:bavaresco/components/number_format.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/menu/menu.dart';
 import 'package:bavaresco/repository/machineInfoApontamentoRepository.dart';
@@ -280,7 +281,13 @@ class _infoHistorico extends StatelessWidget {
         children: <Widget>[
           Column(
             children: [
-              Text(this.infoApontamento.description),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+
+                child: Text(this.infoApontamento.description,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                           ),
+              ),
             ],
           ),
 
@@ -294,7 +301,7 @@ class _infoHistorico extends StatelessWidget {
             ),
           if (this.infoApontamento.abastecimentoQtde != null)
             Text(
-              'Qtde Abastecida: ' + this.infoApontamento.abastecimentoQtde.round().toString() + ' lts',
+              'Qtde Abastecida: ${patterNumberDouble(this.infoApontamento.abastecimentoQtde)} lts',
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,
@@ -302,7 +309,7 @@ class _infoHistorico extends StatelessWidget {
             ),
           if (this.infoApontamento.hrmetroAtualAbastecimento != null)
             Text(
-              'Horimetro Abastecimento: ' + this.infoApontamento.hrmetroAtualAbastecimento.toString(),
+              'Horimetro Abastecimento:  ${patterNumber(this.infoApontamento.hrmetroAtualAbastecimento)}',
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,
