@@ -17,7 +17,7 @@ class ListaHistoricoMaquina extends StatefulWidget {
 
 class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
     with TickerProviderStateMixin {
-  //final oCcy = new NumberFormat("#.##", "pt_BR");
+
   final String _title = "Histórico";
   MachineHistoricoDao _historicoDao = MachineHistoricoDao();
 
@@ -85,10 +85,11 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   //mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text(
-                                      'Ano de Fabricação:  ' +
-                                          widget.machine.yearManufacture
-                                              .toString(),
+                                    if (DateTime.now().year - widget.machine.yearManufacture == 0 && (widget.machine.yearManufacture != 0))
+                                      Text('Ano de Fabricação:  ' + widget.machine.yearManufacture.toString())
+                                    else Text('Ano de Fabricação:  ' + widget.machine.yearManufacture.toString() + ' (' + (DateTime.now().year - widget.machine.yearManufacture).toString() + ' anos)',
+
+
                                       maxLines: 1,
                                     ),
                                     if( widget.machine.serialNumber != null)
@@ -117,7 +118,7 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
                                     if (widget.machine.motorized != 0)
                                     Text(
                                       'Tanque Diesel:  ' +
-                                          widget.machine.tankCapacity.toString(),
+                                          widget.machine.tankCapacity.round().toString() + ' lts',
                                       maxLines: 1,
                                     ),
                                   ],
@@ -282,16 +283,7 @@ class _infoHistorico extends StatelessWidget {
               Text(this.infoApontamento.description),
             ],
           ),
-          if (this.infoApontamento.hrmetroAtualizacao != null)
-          Text(
-            'Horimetro:' +
-                this.infoApontamento.hrmetroAtualizacao.toString() +
-                'h',
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: Colors.black54,
-            ),
-          ),
+
           if (this.infoApontamento.infoTanque != null)
             Text(
               'Tanque: ' + this.infoApontamento.infoTanque,
@@ -302,7 +294,7 @@ class _infoHistorico extends StatelessWidget {
             ),
           if (this.infoApontamento.abastecimentoQtde != null)
             Text(
-              'Qtde Abastecida: ' + this.infoApontamento.abastecimentoQtde.toString(),
+              'Qtde Abastecida: ' + this.infoApontamento.abastecimentoQtde.round().toString() + ' lts',
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,
@@ -318,7 +310,7 @@ class _infoHistorico extends StatelessWidget {
             ),
           if (this.infoApontamento.hrmetroAtualizacao != null)
             Text(
-              'Horimetro atualizado: ' + this.infoApontamento.hrmetroAtualizacao.toString(),
+              'Horimetro atualizado: ' + this.infoApontamento.hrmetroAtualizacao.toString() + ' h',
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,

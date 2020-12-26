@@ -39,16 +39,16 @@ class ListaMaquinas extends StatelessWidget {
         ],
       ),
       body: _machinesList(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.filter_alt_outlined,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          //Abre show dialog para filtro
-          FiltroMaquina(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(
+      //     Icons.filter_alt_outlined,
+      //     color: Colors.white,
+      //   ),
+      //   onPressed: () {
+      //     //Abre show dialog para filtro
+      //     FiltroMaquina(context);
+      //   },
+      // ),
     );
   }
 }

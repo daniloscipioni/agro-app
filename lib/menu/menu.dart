@@ -66,20 +66,20 @@ SpeedDial buildSpeedDial(BuildContext context, MachineRepository machine) {
         // labelStyle: TextStyle(fontWeight: FontWeight.w500),
         //labelBackgroundColor: Colors.green,
       ),
-      SpeedDialChild(
-        child: Icon(Icons.access_time, color: Colors.white),
-        backgroundColor: Colors.grey,
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => FormularioAtualizarHorimetro(machine: machine),
-            ),
-          );
-        },
-        // label: 'Atualizar Horímetro',
-        // labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //labelBackgroundColor: Colors.green,
-      ),
+      // SpeedDialChild(
+      //   child: Icon(Icons.access_time, color: Colors.white),
+      //   backgroundColor: Colors.grey,
+      //   onTap: () {
+      //     Navigator.of(context).push(
+      //       MaterialPageRoute(
+      //         builder: (context) => FormularioAtualizarHorimetro(machine: machine),
+      //       ),
+      //     );
+      //   },
+      //   // label: 'Atualizar Horímetro',
+      //   // labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //   //labelBackgroundColor: Colors.green,
+      // ),
       SpeedDialChild(
         child: Icon(Icons.app_registration, color: Colors.white),
         backgroundColor: Colors.grey,

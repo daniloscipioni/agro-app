@@ -122,7 +122,7 @@ class _formularioAtualizarHorimetroState extends State<FormularioAtualizarHorime
                         onPressed: () {
                           debugPrint(_horimetroController.text);
                           _historicoDao.saveApontamentoMaquina(
-                              HistoricInfo( 2, widget.machine.id, 'Danilo Eduardo',DateTime.now().millisecondsSinceEpoch, null, null, null, null, int.tryParse(_horimetroController.text), null)
+                              HistoricInfo( 2, widget.machine.id, 'Usuário Teste',DateTime.now().millisecondsSinceEpoch, null, null, null, null, int.tryParse(_horimetroController.text), null)
                           ).then((value) => Navigator.pop(context));
 
                           //Navigator.of(context).pop();
