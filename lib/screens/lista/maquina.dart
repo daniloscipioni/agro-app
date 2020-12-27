@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import '../menu.dart';
 
 class ListaMaquinas extends StatelessWidget {
-
   final MachineDao _dao = MachineDao();
   final String _title = "Máquinas";
   final String _updating = "Sincronizando Banco de Dados!";
@@ -96,7 +95,6 @@ class _machinesList extends StatelessWidget {
           return Text('Unknown error');
         },
       ),
-
     );
   }
 }
@@ -123,96 +121,96 @@ class _machineItem extends StatelessWidget {
       //
       // },
       child: Card(
+
+        clipBehavior: Clip.antiAlias,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          //borderRadius: BorderRadius.circular(15.0),
+          side: BorderSide(
+            color: Colors.black,
+            width: 0.2,
+          )
+        ),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          //padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: SizedBox(
-           // height: 210,
+            // height: 210,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   child: Container(
-                   // padding: const EdgeInsets.fromLTRB(5.0, 0.0, 2.0, 0.0),
+                    // padding: const EdgeInsets.fromLTRB(5.0, 0.0, 2.0, 0.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(0,0,0,5),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Text(
-                                machine.mainTitle(),
-                                maxLines: 3,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              ListTile(
-                                dense:true,
-                                visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-                                leading: Icon(Icons.local_gas_station,size: 18.0,),
-                                title: Align(
-                                  child: new Text('Último Abastecimento'),
-                                  alignment: Alignment.center,
-                                ),
-                                //subtitle: Text('subtitulo'),
-                                trailing: Text('305.65 Lts'),
-                                //isThreeLine: true,
+                              ColoredBox(
+                                color: Colors.green,
 
+                                //height: 50,
+                                child:  Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
 
+                                  children: [
+                                    Text(
+                                      machine.mainTitle(),
+                                      maxLines: 10,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        fontSize: 20
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
 
                               ListTile(
-                                dense:true,
+                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                                 // contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                  leading: Icon(Icons.local_gas_station),
+                                  title: Text('Último Abastecimento'),
+                                  subtitle: Text('305.65 Lts'),
+                                  //trailing: Text('305.65 Lts'),
+                                  isThreeLine: false),
+                              ListTile(
                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-                                leading: Icon(Icons.access_time,size: 18.0),
-                                title: Align(
-                                  child: new Text('Horímetro'),
-                                  alignment: Alignment.center,
-                                ),
-                                //subtitle: Text('subtitulo'),
-                                trailing: Text('4.500h'),
-                                //isThreeLine: true,
-
-
+                                //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                leading: Icon(Icons.access_time),
+                                title: Text('Horímetro '),
+                                subtitle: Text('4.500h'),
+                                //trailing: Text('4.500h'),
+                                isThreeLine: false,
                               ),
                               ListTile(
-                                dense:true,
                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                leading: Icon(Icons.access_time,size: 18.0),
-                                title: Align(
-                                  child: new Text('Consumo Médio'),
-                                  alignment: Alignment.center,
-                                ),
-                                //subtitle: Text('subtitulo'),
-                                trailing: Text('5,6 L/h'),
-                                //isThreeLine: true,
-
-
-
+                                //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                leading: Icon(Icons.agriculture),
+                                title: Text('Consumo Médio'),
+                                subtitle: Text('5,6 L/h'),
+                                //trailing: Text('5,6 L/h'),
+                                isThreeLine: false,
                               ),
-
                               ListTile(
-                                dense:true,
-                                contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                leading: Icon(Icons.monetization_on,size: 18.0,),
-                                title: Align(
-                                  child: new Text('Custo Horário'),
-                                  alignment: Alignment.center,
-                                ),
-                                //subtitle: Text('subtitulo'),
-                                trailing: Text('R\$\ 150,00 /h'),
-                                //isThreeLine: true,
-
                                 visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+                                //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                leading: Icon(Icons.monetization_on,),
+                                title: Text('Custo Horário'),
+                                subtitle: Text('R\$\ 150,00 /h'),
+                                //trailing: Text('R\$\ 150,00 /h'),
+                                isThreeLine: false,
+
                               ),
+
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   ),
@@ -222,10 +220,7 @@ class _machineItem extends StatelessWidget {
           ),
         ),
       ),
+
     );
   }
 }
-
-
-
-
