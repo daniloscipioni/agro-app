@@ -123,136 +123,129 @@ class _machineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-     // InkWell(
-        // onTap: () {
-        //   Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //       builder: (context) => ListaHistoricoMaquina(
-        //         machine: machine,
-        //       ),
-        //     ),
-        //   );
-        // },
-        // onTap: () {
-        //   print("Card Clicked" + machine.id.toString());
-        //
-        // },
-       // child:
-       Container(
-          decoration: new BoxDecoration(
-              //color: Colors.green,
-              // borderRadius: new BorderRadius.only(
-              //   topLeft: const Radius.circular(40.0),
-              //   topRight: const Radius.circular(40.0),
-              // )
-              ),
-          child: ExpansionTile(
-            title: Text(
-              machine.mainTitle(),
-              //maxLines: 5,
-              // style: const TextStyle(
-              //     //fontWeight: FontWeight.bold,
-              //     color: Colors.black,
-              //     fontSize: 18),
-            ),
-
-            //subtitle: Text(machine.machineManufacturer),
-            children: [
-              Card(
-                clipBehavior: Clip.antiAlias,
-                color: Colors.green[200],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(topLeft: Radius.zero,topRight: Radius.zero, bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15)),
-                  side: BorderSide(
-                    color: Colors.green[300],
-                    width: 1.0,
-                  ),
+       Padding(
+         padding: const EdgeInsets.all(8.0),
+         child:
+         Container(
+            decoration: new BoxDecoration(
+                color: Colors.green,
+                borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10.0),
+                  topRight: const Radius.circular(10.0),
+                  bottomRight: const Radius.circular(10.0),
+                  bottomLeft: const Radius.circular(10.0),
+                )
                 ),
-                child: Container(
-                  //padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: SizedBox(
-                    // height: 210,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                ListTile(
-                                    visualDensity: VisualDensity(
-                                        horizontal: 0, vertical: -4),
-                                    // contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                    leading: Icon(Icons.local_gas_station),
-                                    title: Text('Último Abastecimento'),
-                                    subtitle: Text('305.65 Lts'),
-                                    //trailing: Text('305.65 Lts'),
-                                    isThreeLine: false),
-                                ListTile(
-                                  visualDensity:
-                                      VisualDensity(horizontal: 0, vertical: -4),
-                                  //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                  leading: Icon(Icons.access_time),
-                                  title: Text('Horímetro '),
-                                  subtitle: Text('4.500h'),
-                                  //trailing: Text('4.500h'),
-                                  isThreeLine: false,
-                                ),
-                                ListTile(
-                                  visualDensity:
-                                      VisualDensity(horizontal: 0, vertical: -4),
-                                  //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                  leading: Icon(Icons.agriculture),
-                                  title: Text('Consumo Médio'),
-                                  subtitle: Text('5,6 L/h'),
-                                  //trailing: Text('5,6 L/h'),
-                                  isThreeLine: false,
-                                ),
-                                ListTile(
-                                  visualDensity:
-                                      VisualDensity(horizontal: 0, vertical: -4),
-                                  //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
-                                  leading: Icon(
-                                    Icons.monetization_on,
-                                  ),
-                                  title: Text('Custo Horário'),
-                                  subtitle: Text('R\$\ 150,00 /h'),
-                                  //trailing: Text('R\$\ 150,00 /h'),
-                                  isThreeLine: false,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  //crossAxisAlignment: CrossAxisAlignment.end,
-                                  //textDirection: ,
-                                  children: [
-                                    TextButton(
+           // padding: EdgeInsets.all(8.0),
+            child: ExpansionTile(
+              title: Text(
+                machine.mainTitle(),
+                //maxLines: 5,
+                style: const TextStyle(
+                    //fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18),
+              ),
 
-                                      child: Text('Ver Apontamentos'),
-                                      onPressed: () {   Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => ListaHistoricoMaquina(
-                                            machine: machine,
-                                          ),
-                                        ),
-                                      );},
-                                    ),
-                                  ],
-                                ),
-                               // const SizedBox(width: 8),
-                              ],
-                            ),
-                          ),
-                        ),
+              //subtitle: Text(machine.machineManufacturer),
+              children: [
+                Card(
 
-                      ],
+                  clipBehavior: Clip.antiAlias,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topLeft: Radius.zero,topRight: Radius.zero, bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+                    side: BorderSide(
+                      color: Colors.green[300],
+                      width: 1.0,
                     ),
                   ),
-                ),
+                  child: Container(
+                    //padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: SizedBox(
+                      // height: 210,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                      visualDensity: VisualDensity(
+                                          horizontal: 0, vertical: -4),
+                                      // contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                      leading: Icon(Icons.local_gas_station),
+                                      title: Text('Último Abastecimento'),
+                                      subtitle: Text('305.65 Lts'),
+                                      //trailing: Text('305.65 Lts'),
+                                      isThreeLine: false),
+                                  ListTile(
+                                    visualDensity:
+                                        VisualDensity(horizontal: 0, vertical: -4),
+                                    //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                    leading: Icon(Icons.access_time),
+                                    title: Text('Horímetro '),
+                                    subtitle: Text('4.500h'),
+                                    //trailing: Text('4.500h'),
+                                    isThreeLine: false,
+                                  ),
+                                  ListTile(
+                                    visualDensity:
+                                        VisualDensity(horizontal: 0, vertical: -4),
+                                    //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                    leading: Icon(Icons.agriculture),
+                                    title: Text('Consumo Médio'),
+                                    subtitle: Text('5,6 L/h'),
+                                    //trailing: Text('5,6 L/h'),
+                                    isThreeLine: false,
+                                  ),
+                                  ListTile(
+                                    visualDensity:
+                                        VisualDensity(horizontal: 0, vertical: -4),
+                                    //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
+                                    leading: Icon(
+                                      Icons.monetization_on,
+                                    ),
+                                    title: Text('Custo Horário'),
+                                    subtitle: Text('R\$\ 150,00 /h'),
+                                    //trailing: Text('R\$\ 150,00 /h'),
+                                    isThreeLine: false,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    //crossAxisAlignment: CrossAxisAlignment.end,
+                                    //textDirection: ,
+                                    children: [
+                                      TextButton(
 
-              ),
-            ],
+                                        child: Text('Ver Apontamentos'),
+                                        onPressed: () {   Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => ListaHistoricoMaquina(
+                                              machine: machine,
+                                            ),
+                                          ),
+                                        );},
+                                      ),
+                                    ],
+                                  ),
+                                 // const SizedBox(width: 8),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+
+                ),
+              ],
+            ),
           ),
-        )//,
+       )//,
     //  )
     ;
   }
