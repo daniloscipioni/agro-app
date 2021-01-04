@@ -1,3 +1,4 @@
+import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/screens/formulario/abastecer.dart';
 import 'package:bavaresco/screens/formulario/apontar_defeito.dart';
@@ -23,7 +24,7 @@ Widget buildBody() {
 }
 
 
-SpeedDial buildSpeedDial(BuildContext context, MachineRepository machine) {
+SpeedDial buildSpeedDial(BuildContext context, InfoApontamentoAcumRepository machine) {
 
   return SpeedDial(
     animatedIcon: AnimatedIcons.list_view,

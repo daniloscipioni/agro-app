@@ -1,20 +1,19 @@
 import 'package:bavaresco/database/app_database.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
 import 'package:bavaresco/models/historico/historic_type.dart';
-import 'package:bavaresco/models/maquina/category.dart';
-import 'package:bavaresco/models/maquina/machine.dart';
-import 'package:bavaresco/models/maquina/manufacturer.dart';
-import 'package:bavaresco/models/maquina/model.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineInfoApontamentoRepository.dart';
-import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-class MachineHistoricoDao {
+class MachineHistoricoDao extends ChangeNotifier {
   static const String _id = 'id';
 
   static const String _tableMaquina = 'machines';
+  static const String _tableCategoria = 'categories';
+  static const String _tableFabricante = 'manufacturer';
+  static const String _tableModelo = 'model';
 
   static const String _tableTipoApontamento = 'tipo_apontamento';
   static const String _tableApontamentoMaquina = 'historico_maquina';
@@ -29,10 +28,31 @@ class MachineHistoricoDao {
   static const String _aptoDefeitoObs = 'apto_defeito_obs';
 
   static const String _idHistoricType = 'id_hitoric_type';
+  static const String _idMachineManufacturer = 'id_manufacturer';
+  static const String _idMachineCategory = 'id_category';
+  static const String _idModel = 'id_model';
   static const String _user = 'user';
   static const String _date = 'date';
 
 
+  //Dados Acumulados
+  static const String _machineName = 'machine_name';
+  static const String _categoryName = 'category_name';
+  static const String _manufacturerName = 'manufacturer_name';
+  static const String _yearManufacture = 'year_manufacture';
+  static const String _serieNumber = 'serie_number';
+  static const String _motor = 'motor';
+  static const String _power = 'power';
+  static const String _value = 'value';
+  static const String _fuelTank = 'fuel_tank';
+  static const String _ultimoAbastecimento = 'ultimo_abastecimento';
+  static const String _modelName = 'model_name';
+  static const String _motorized = 'motorized';
+  static const String _fuelType = 'fuel_type';
+  static const String _tankCapacity = 'tank_capacity';
+  static const String _horimetroAtual = 'horimetro_atual';
+  static const String _consumoMedio = 'consumo_medio';
+  static const String _custoHorario = 'custo_horario';
 
   static const String _idMachine = 'id_machine';
 
@@ -74,6 +94,7 @@ class MachineHistoricoDao {
     Map<String, dynamic> infoApontamentoMap =
     _toMapInfoApontamento(infoApontamento);
     return db.insert(_tableApontamentoMaquina, infoApontamentoMap);
+
   }
 
   Map<String, dynamic> _toMapTipoApontamento(HistoricType tipoApontamento) {
@@ -188,8 +209,7 @@ class MachineHistoricoDao {
   }
 
   //Lista os campos descritos
-  List<TipoApontamentoRepository> toListTipoApontamento(
-      List<Map<String, dynamic>> result) {
+  List<TipoApontamentoRepository> toListTipoApontamento(List<Map<String, dynamic>> result) {
     final List<TipoApontamentoRepository> tiposApontamento = List();
 
     for (Map<String, dynamic> row in result) {
@@ -205,14 +225,12 @@ class MachineHistoricoDao {
   }
 
   //Lista os campos descritos
-  List<InfoApontamentoRepository> toListInfoApontamento(
-      List<Map<String, dynamic>> result) {
+  List<InfoApontamentoRepository> toListInfoApontamento(List<Map<String, dynamic>> result) {
     final List<InfoApontamentoRepository> infosApontamento = List();
 
     for (Map<String, dynamic> row in result) {
       final InfoApontamentoRepository infoApontamento =
       InfoApontamentoRepository(
-         // row[_id],
           row[_description],
           row[_idMachine],
           row[_idHistoricType],
@@ -230,4 +248,82 @@ class MachineHistoricoDao {
 
     return infosApontamento;
   }
+
+  //Lista todos os apontamentos por máquina acumulado
+  Future<List<InfoApontamentoAcumRepository>> findAllInfoApontamentoByMachineAcum()  async  {
+    final Database db = await getDatabase();
+    final List<Map<String, dynamic>> result = await db.rawQuery(
+         'SELECT '
+    '$_tableMaquina.$_id,'
+    ' $_machineName,'
+    ' $_yearManufacture,'
+    ' $_serieNumber,'
+    ' $_motor,'
+    ' $_power,'
+    ' $_value,'
+    ' $_fuelTank,'
+    ' $_manufacturerName, '
+    ' $_modelName,  '
+    ' $_motorized, '
+    ' $_fuelType, '
+    ' $_tankCapacity, '
+    '(SELECT $_tableApontamentoMaquina.$_hrmetroAtualAbastecimento FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date desc LIMIT 1) as $_ultimoAbastecimento '
+
+    'FROM $_tableMaquina '
+    'join $_tableFabricante on $_tableMaquina.$_idMachineManufacturer = $_tableFabricante.$_id '
+    'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel'
+
+    );
+
+    List<InfoApontamentoAcumRepository> apontamentos = toListInfoApontamentoAcum(result);
+
+    return apontamentos;
+  }
+
+  //Lista dados acumulados
+  List<InfoApontamentoAcumRepository> toListInfoApontamentoAcum(List<Map<String, dynamic>> result) {
+    final List<InfoApontamentoAcumRepository> infosApontamentoAcum = List();
+
+    for (Map<String, dynamic> row in result) {
+      //debugPrint(result.toString());
+      final InfoApontamentoAcumRepository infoApontamentoAcum =
+      InfoApontamentoAcumRepository(
+          row[_id],
+          row[_machineName],
+          row[_yearManufacture],
+          row[_serieNumber],
+          row[_motor],
+          row[_power],
+          row[_value],
+          row[_fuelTank],
+          row[_manufacturerName],
+          row[_modelName],
+          row[_motorized],
+          row[_fuelType],
+          row[_tankCapacity],
+          row[_description],
+          row[_idMachine],
+          row[_idHistoricType],
+          row[_user],
+          row[_date],
+          row[_infoTanque],
+          row[_aptoDefeitoTipo],
+          row[_abastecimentoQtde],
+          row[_hrmetroAtualAbastecimento],
+          row[_hrmetroAtualizacao],
+          row[_aptoDefeitoObs],
+          row[_ultimoAbastecimento].toString()
+          // row[_horimetroAtual],
+          // row[_consumoMedio],
+          // row[_custoHorario]
+      );
+
+      infosApontamentoAcum.add(infoApontamentoAcum);
+    }
+
+    return infosApontamentoAcum;
+
+
+  }
+  notifyListeners();
 }

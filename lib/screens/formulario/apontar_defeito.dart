@@ -1,13 +1,14 @@
 import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/screens/lista/historico.dart';
 import 'package:flutter/material.dart';
 
 class FormularioApontarDefeito extends StatefulWidget{
 
-  final MachineRepository machine;
+  final InfoApontamentoAcumRepository machine;
 
   FormularioApontarDefeito({Key key, @required this.machine}) : super(key: key);
 

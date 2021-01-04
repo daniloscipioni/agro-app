@@ -2,13 +2,13 @@ import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/components/number_format.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/menu/menu.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineInfoApontamentoRepository.dart';
-import 'package:bavaresco/repository/machineRepository.dart';
-import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 class ListaHistoricoMaquina extends StatefulWidget {
-  final MachineRepository machine;
+  final InfoApontamentoAcumRepository machine;
 
   ListaHistoricoMaquina({Key key, @required this.machine}) : super(key: key);
 
@@ -24,12 +24,14 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
         centerTitle: true,
         actions: <Widget>[
           Builder(builder: (BuildContext context) {
+
             return IconButton(
               icon: const Icon(Icons.sync),
               onPressed: () {

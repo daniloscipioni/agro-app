@@ -3,11 +3,12 @@ import 'package:bavaresco/models/maquina/category.dart';
 import 'package:bavaresco/models/maquina/machine.dart';
 import 'package:bavaresco/models/maquina/manufacturer.dart';
 import 'package:bavaresco/models/maquina/model.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-class MachineDao {
+class MachineDao extends ChangeNotifier {
   static const String _id = 'id';
 
   static const String _tableMaquina = 'machines';
@@ -34,6 +35,13 @@ class MachineDao {
   static const String _idModel = 'id_model';
 
   static const String _modelName = 'model_name';
+
+  //Dados Acumulados
+  String _ultimoAbastecimento = 'ultimo_abastecimento';
+  String _horimetroAtual = 'horimetro_atual';
+  String _consumoMedio = 'consumo_medio';
+  String _custoHorario = 'custo_horario';
+
 
   static const String tableMaquina = 'CREATE TABLE $_tableMaquina('
       '$_id INTEGER PRIMARY KEY, '
@@ -143,7 +151,8 @@ class MachineDao {
   Future<List<MachineRepository>> findAllMachines() async {
     final Database db = await getDatabase();
     final List<Map<String, dynamic>> result = await db.rawQuery(
-        'SELECT $_tableMaquina.$_id,'
+        'SELECT '
+        '$_tableMaquina.$_id,'
         ' $_machineName,'
         ' $_yearManufacture,'
         ' $_serieNumber,'
@@ -212,4 +221,6 @@ class MachineDao {
 
     return machines;
   }
+
+  notifyListeners();
 }

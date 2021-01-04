@@ -1,14 +1,17 @@
 import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
+import 'package:bavaresco/models/maquina/InfoMachine.dart';
+import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/screens/lista/historico.dart';
+import 'package:bavaresco/screens/lista/maquina.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
 
-class FormularioAbastecer extends StatefulWidget{
-
-  final MachineRepository machine;
+class FormularioAbastecer extends StatefulWidget {
+  final InfoApontamentoAcumRepository machine;
 
   FormularioAbastecer({Key key, @required this.machine}) : super(key: key);
 
@@ -16,108 +19,104 @@ class FormularioAbastecer extends StatefulWidget{
   _formularioAbastecerState createState() => _formularioAbastecerState();
 }
 
-class _formularioAbastecerState extends State<FormularioAbastecer> with TickerProviderStateMixin {
-
+class _formularioAbastecerState extends State<FormularioAbastecer>
+    with TickerProviderStateMixin {
   MachineHistoricoDao _historicoDao = MachineHistoricoDao();
   final TextEditingController _quantidadeController = TextEditingController();
-  final TextEditingController _horimetroAtualController =  TextEditingController();
+  final TextEditingController _horimetroAtualController =
+      TextEditingController();
   String tanqueDropdownValue = 'Tanque Diesel';
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: Text('Abastecimento'),
         centerTitle: true,
       ),
       body: Column(
         children: [
-        //  Card(
-         //   child:
-            //Container(
-              //padding: const EdgeInsets.symmetric(vertical: 0.0),
-             // child:
+          //  Card(
+          //   child:
+          //Container(
+          //padding: const EdgeInsets.symmetric(vertical: 0.0),
+          // child:
 
-                SizedBox(
-                  height: 90 ,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          //padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+          SizedBox(
+            height: 90,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    //padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        //mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 6.0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              //mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0.0, 0.0, 0.0, 6.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        widget.machine.mainTitle(),
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      if(widget.machine.fuelType != null)
-                                      Text(
-                                        'Abaster com: ' + widget.machine.fuelType,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ],
+                              children: [
+                                Text(
+                                  widget.machine.mainTitle(),
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 5.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    //mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-
-                                    ],
+                                if (widget.machine.fuelType != null)
+                                  Text(
+                                    'Abaster com: ' + widget.machine.fuelType,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
                                   ),
-                                )
-                                // ],
-                                // ),
-                                // ),
                               ],
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              //mainAxisAlignment: MainAxisAlignment.end,
+                              children: [],
+                            ),
+                          )
+                          // ],
+                          // ),
+                          // ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                )
+              ],
+            ),
+          ),
 
           //  ),
-       //  ),
+          //  ),
           Divider(
             color: Colors.grey,
             height: 2,
           ),
 
           Expanded(
-            child:
-
-            Padding(
+            child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
                 key: _formKey,
                 child: ListView(
                   children: <Widget>[
-                  DropdownButton<String>(
+                    DropdownButton<String>(
                       value: tanqueDropdownValue,
                       icon: Icon(Icons.arrow_downward),
                       itemHeight: 60,
@@ -133,78 +132,90 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
                           tanqueDropdownValue = newValue;
                         });
                       },
-                      items: <String>['Tanque Diesel','Melosa', 'Tanque Querosene','Tanque Etanol', 'Tanque Gasolina']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: <String>[
+                        'Tanque Diesel',
+                        'Melosa',
+                        'Tanque Querosene',
+                        'Tanque Etanol',
+                        'Tanque Gasolina'
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
                     ),
-                  TextFormField(
-                      controller: _quantidadeController,
+                    TextFormField(
+                        controller: _quantidadeController,
+                        // ignore: missing_return
+                        validator: (value) {
+                          if (value.isEmpty ||
+                              (!isNumber(value.replaceAll(',', '.')))) {
+                            return 'Valor Inválido';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Quantidade',
+                          hintText: '0.0',
+                        ),
+                        style: TextStyle(fontSize: 12.0),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        // ignore: deprecated_member_use
+                        inputFormatters: [
+                          BlacklistingTextInputFormatter(
+                              new RegExp('[\\-|\\ ]'))
+                        ]
+                        //  inputFormatters: <TextInputFormatter>[
+                        // WhitelistingTextInputFormatter.digitsOnly
+                        //  ]
+                        ),
+                    TextFormField(
+                      controller: _horimetroAtualController,
                       // ignore: missing_return
                       validator: (value) {
-                        if(value.isEmpty || (!isNumber(value.replaceAll(',', '.')))){
+                        if (value.isEmpty || (!isNumber(value))) {
                           return 'Valor Inválido';
                         }
                       },
                       decoration: InputDecoration(
-                        labelText: 'Quantidade',
+                        labelText: 'Horímetro Atual',
                         hintText: '0.0',
                       ),
                       style: TextStyle(fontSize: 12.0),
-                      keyboardType: TextInputType.numberWithOptions(decimal: true),
-                        // ignore: deprecated_member_use
-                        inputFormatters: [BlacklistingTextInputFormatter(new RegExp('[\\-|\\ ]'))]
-                       //  inputFormatters: <TextInputFormatter>[
-                       // WhitelistingTextInputFormatter.digitsOnly
-                       //  ]
+                      keyboardType: TextInputType.number,
                     ),
-                  TextFormField(
-                    controller: _horimetroAtualController,
-                    // ignore: missing_return
-                    validator: (value) {
-                      if(value.isEmpty || (!isNumber(value))){
-                        return 'Valor Inválido';
-                      }
-                    },
-                        decoration: InputDecoration(
-                          labelText: 'Horímetro Atual',
-                          hintText: '0.0',
-                        ),
-                        style: TextStyle(fontSize: 12.0),
-                        keyboardType: TextInputType.number,
-                      ),
-                  RaisedButton(
+                    RaisedButton(
                       child: Text('Salvar'),
                       onPressed: () {
                         debugPrint(tanqueDropdownValue);
                         //debugPrint(isNumber(_quantidadeController.text).toString());
                         //debugPrint(_horimetroAtualController.text);
-                        try{
+                        try {
                           if (_formKey.currentState.validate()) {
-
-                            _historicoDao.saveApontamentoMaquina(
-                                HistoricInfo(
+                            _historicoDao
+                                .saveApontamentoMaquina(HistoricInfo(
                                     1,
                                     widget.machine.id,
                                     'Usuário Teste',
-                                    DateTime
-                                        .now()
-                                        .millisecondsSinceEpoch,
+                                    DateTime.now().millisecondsSinceEpoch,
                                     tanqueDropdownValue,
                                     null,
-                                    double.tryParse(
-                                        _quantidadeController.text.replaceAll(',', '.')),
-                                    int.tryParse(
-                                        _horimetroAtualController.text.replaceAll(',', '').replaceAll('.', '')),
+                                    double.tryParse(_quantidadeController.text
+                                        .replaceAll(',', '.')),
+                                    int.tryParse(_horimetroAtualController.text
+                                        .replaceAll(',', '')
+                                        .replaceAll('.', '')),
                                     null,
-                                    null)
-                            ).then((value) => Navigator.pop(context));
+                                    null))
+                                .then((value) {
+                              //setState(() {
+                                Navigator.pop(context);
+                             // });
+                            });
                             debugPrint("Abastecimento Salvo");
                           }
-                        }catch(e){
+                        } catch (e) {
                           debugPrint(e.toString());
                         }
 
@@ -235,14 +246,12 @@ class _formularioAbastecerState extends State<FormularioAbastecer> with TickerPr
       // ),
     );
   }
-
-}// Function to validate the number
-
+} // Function to validate the number
 
 bool isNumber(String value) {
-  if(value == null) {
+  if (value == null) {
     return true;
   }
   final n = double.parse(value);
-  return n!= null;
+  return n != null;
 }
