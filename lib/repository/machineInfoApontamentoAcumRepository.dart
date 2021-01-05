@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class InfoApontamentoAcumRepository {
   int _id;
@@ -26,8 +26,8 @@ class InfoApontamentoAcumRepository {
   int _hrmetroAtualizacao;
   String _aptoDefeitoObs;
   String _ultimoAbastecimento;
-  // String _horimetroAtual;
-  // String _consumoMedio;
+  String _horimetroAtual;
+  String _consumoMedio;
   // String _custoHorario;
 
 
@@ -56,9 +56,9 @@ class InfoApontamentoAcumRepository {
       this._hrmetroAtualAbastecimento,
       this._hrmetroAtualizacao,
       this._aptoDefeitoObs,
-      this._ultimoAbastecimento
-      // this._horimetroAtual,
-      // this._consumoMedio,
+      this._ultimoAbastecimento,
+      this._horimetroAtual,
+      this._consumoMedio,
       // this._custoHorario
       );
 
@@ -72,18 +72,18 @@ class InfoApontamentoAcumRepository {
   //   _custoHorario = value;
   // }
   //
-  // String get consumoMedio => _consumoMedio;
-  //
-  // set consumoMedio(String value) {
-  //   _consumoMedio = value;
-  // }
-  //
-  // String get horimetroAtual => _horimetroAtual;
-  //
-  // set horimetroAtual(String value) {
-  //   _horimetroAtual = value;
-  // }
-  //
+  String get consumoMedio => _consumoMedio;
+
+  set consumoMedio(String value) {
+    _consumoMedio = value;
+  }
+
+  String get horimetroAtual => _horimetroAtual;
+
+  set horimetroAtual(String value) {
+    _horimetroAtual = value;
+  }
+
   String get ultimoAbastecimento => _ultimoAbastecimento;
 
   set ultimoAbastecimento(String value) {

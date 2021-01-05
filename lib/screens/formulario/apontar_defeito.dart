@@ -108,7 +108,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                     itemHeight: 60,
                     iconSize: 24,
                     elevation: 16,
-                    style: TextStyle(color: Colors.green),
+                    style: TextStyle(color: Colors.green,fontSize: 16),
                     underline: Container(
                       height: 2,
                       color: Colors.blueGrey,
@@ -133,7 +133,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                       decoration: InputDecoration(
                         labelText: 'Observações',
                       ),
-                      style: TextStyle(fontSize: 12.0),
+                      style: TextStyle(fontSize: 16.0),
                       keyboardType: TextInputType.text,
                     ),
                   ),

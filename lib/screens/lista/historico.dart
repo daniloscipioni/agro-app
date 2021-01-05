@@ -18,20 +18,17 @@ class ListaHistoricoMaquina extends StatefulWidget {
 
 class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
     with TickerProviderStateMixin {
-
   final String _title = "Histórico";
   MachineHistoricoDao _historicoDao = MachineHistoricoDao();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
-        centerTitle: true,
+        //centerTitle: true,
         actions: <Widget>[
           Builder(builder: (BuildContext context) {
-
             return IconButton(
               icon: const Icon(Icons.sync),
               onPressed: () {
@@ -58,87 +55,164 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
                   children: <Widget>[
                     Expanded(
                       child: Container(
-                        //padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            //mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 0.0, 0.0, 6.0),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      widget.machine.mainTitle(),
-                                      maxLines: 1,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    widget.machine.mainTitle(),
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 23,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
+                                mainAxisAlignment: MainAxisAlignment.center,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5.0, horizontal: 5.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  //mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    if (DateTime.now().year - widget.machine.yearManufacture == 0 && (widget.machine.yearManufacture != 0))
-                                      Text('Ano de Fabricação:  ' + widget.machine.yearManufacture.toString())
-                                    else Text('Ano de Fabricação:  ' + widget.machine.yearManufacture.toString() + ' (' + (DateTime.now().year - widget.machine.yearManufacture).toString() + ' anos)',
+                            ),
 
-
-                                      maxLines: 1,
-                                    ),
-                                    if( widget.machine.serialNumber != null)
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (DateTime.now().year -
+                                              widget.machine.yearManufacture ==
+                                          0 &&
+                                      (widget.machine.yearManufacture != 0))
                                     Text(
-                                      'Número de série:  ' +
+                                      'Ano de Fabricação:  -',
+                                    )
+                                  else
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Ano de Fabricação:  ',
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          widget.machine.yearManufacture
+                                                  .toString() +
+                                              ' (' +
+                                              (DateTime.now().year -
+                                                      widget.machine
+                                                          .yearManufacture)
+                                                  .toString() +
+                                              ' anos)',
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  if (widget.machine.serialNumber != null)
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Número de série:  ',
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
                                           widget.machine.serialNumber
                                               .toString(),
-                                      maxLines: 1,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    // Text(
-                                    //   'Motor:  ' +
-                                    //       widget.machine.motor.toString(),
-                                    //   maxLines: 1,
-                                    // ),
-                                    // Text(
-                                    //   'Potência:  ' +
-                                    //       widget.machine.power.toString(),
-                                    //   maxLines: 1,
-                                    // ),
-                                    Text(
-                                      'Valor: '  +
-                                    NumberFormat.currency(locale: 'pt', symbol: 'R\$').format(widget.machine.value),
-
-                                      maxLines: 1,
+                                  if (widget.machine.value != null)
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Valor: ',
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          NumberFormat.currency(
+                                                  locale: 'pt', symbol: 'R\$')
+                                              .format(widget.machine.value),
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    if (widget.machine.motorized != 0)
-                                    Text(
-                                      'Tanque Diesel:  ' +
-                                          widget.machine.tankCapacity.round().toString() + ' lts',
-                                      maxLines: 1,
+                                  if (widget.machine.motorized != 0)
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Tanque Diesel:  ',
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Text(
+                                          widget.machine.tankCapacity
+                                                  .round()
+                                                  .toString() +
+                                              ' lts',
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              )
-                              // ],
-                              // ),
-                              // ),
-                            ],
-                          ),
+                                ],
+                              ),
+                            ),
+                            //   )
+                            // ],
+                            // ),
+                            // ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         ),
+                        // ),
                       ),
                     )
                   ],
                 ),
               ),
             ),
+            color: Colors.white60,
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.black, width: 1.0),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(0),
+                    topLeft: Radius.circular(0),
+                    bottomLeft: Radius.circular(5),
+                    bottomRight: Radius.circular(5))),
           ),
           Divider(
             color: Colors.grey,
@@ -194,11 +268,11 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
                       final List<InfoApontamentoRepository> infosApontamento =
                           snapshot.data;
 
+                      if (snapshot.data.length == 0) return _semHistorico();
                       return ListView.builder(
                         itemBuilder: (context, index) {
-                          final InfoApontamentoRepository infoApontamento =
-                              infosApontamento[index];
-                          return _cardHistoricoUnidade(infoApontamento);
+                          final InfoApontamentoRepository infoApontamento = infosApontamento[index];
+                            return _cardHistoricoUnidade(infoApontamento);
                         },
                         itemCount: infosApontamento.length,
                       );
@@ -237,6 +311,27 @@ class _ListaHistoricoMaquinaState extends State<ListaHistoricoMaquina>
       //     print('lista');
       //   },
       // ),
+    );
+  }
+}
+
+class _semHistorico extends StatelessWidget {
+  const _semHistorico({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Text(
+        'Nenhum dado de histórico lançado',
+        style: const TextStyle(
+          fontWeight: FontWeight.w300,
+          fontStyle: FontStyle.italic,
+          fontSize: 20,
+        ),
+      ),
     );
   }
 }
@@ -285,14 +380,13 @@ class _infoHistorico extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-
-                child: Text(this.infoApontamento.description,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                           ),
+                child: Text(
+                  this.infoApontamento.description,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ],
           ),
-
           if (this.infoApontamento.infoTanque != null)
             Text(
               'Tanque: ' + this.infoApontamento.infoTanque,
@@ -319,7 +413,9 @@ class _infoHistorico extends StatelessWidget {
             ),
           if (this.infoApontamento.hrmetroAtualizacao != null)
             Text(
-              'Horimetro atualizado: ' + this.infoApontamento.hrmetroAtualizacao.toString() + ' h',
+              'Horimetro atualizado: ' +
+                  this.infoApontamento.hrmetroAtualizacao.toString() +
+                  ' h',
               style: const TextStyle(
                 fontSize: 12.0,
                 color: Colors.black87,

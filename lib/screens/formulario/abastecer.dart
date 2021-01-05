@@ -6,6 +6,7 @@ import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:bavaresco/screens/lista/historico.dart';
 import 'package:bavaresco/screens/lista/maquina.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
@@ -122,7 +123,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                       itemHeight: 60,
                       iconSize: 24,
                       elevation: 16,
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(color: Colors.green,fontSize: 16),
                       underline: Container(
                         height: 2,
                         color: Colors.blueGrey,
@@ -149,8 +150,8 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                         controller: _quantidadeController,
                         // ignore: missing_return
                         validator: (value) {
-                          if (value.isEmpty ||
-                              (!isNumber(value.replaceAll(',', '.')))) {
+
+                          if (value.isEmpty || (!isNumber(value.replaceAll(',', '.')))) {
                             return 'Valor Inválido';
                           }
                         },
@@ -158,7 +159,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                           labelText: 'Quantidade',
                           hintText: '0.0',
                         ),
-                        style: TextStyle(fontSize: 12.0),
+                        style: TextStyle(fontSize: 16.0),
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         // ignore: deprecated_member_use
@@ -174,16 +175,25 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                       controller: _horimetroAtualController,
                       // ignore: missing_return
                       validator: (value) {
-                        if (value.isEmpty || (!isNumber(value))) {
+                        if (value.isEmpty || (!isNumber(value.replaceAll(',', '')))) {
                           return 'Valor Inválido';
                         }
+
+                        if (int.parse(value) <= int.parse(widget.machine.horimetroAtual.toString())) {
+                          return 'Horímetro Informado menor ou igual que horímetro anterior';
+                        }
+
                       },
                       decoration: InputDecoration(
                         labelText: 'Horímetro Atual',
-                        hintText: '0.0',
+                        hintText: '0',
                       ),
-                      style: TextStyle(fontSize: 12.0),
+                      style: TextStyle(fontSize: 16.0),
                       keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          BlacklistingTextInputFormatter(
+                              new RegExp('[\\-|\\ ]'))
+                        ]
                     ),
                     RaisedButton(
                       child: Text('Salvar'),
@@ -249,6 +259,7 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
 } // Function to validate the number
 
 bool isNumber(String value) {
+
   if (value == null) {
     return true;
   }

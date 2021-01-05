@@ -7,7 +7,7 @@ import 'package:bavaresco/repository/machineTipoApontamentoRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-class MachineHistoricoDao extends ChangeNotifier {
+class MachineHistoricoDao{
   static const String _id = 'id';
 
   static const String _tableMaquina = 'machines';
@@ -267,8 +267,9 @@ class MachineHistoricoDao extends ChangeNotifier {
     ' $_motorized, '
     ' $_fuelType, '
     ' $_tankCapacity, '
-    '(SELECT $_tableApontamentoMaquina.$_hrmetroAtualAbastecimento FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date desc LIMIT 1) as $_ultimoAbastecimento '
-
+    '(SELECT $_tableApontamentoMaquina.$_abastecimentoQtde FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date desc LIMIT 1) as $_ultimoAbastecimento, '
+    '(SELECT $_tableApontamentoMaquina.$_hrmetroAtualAbastecimento FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date desc LIMIT 1) as $_horimetroAtual, '
+    '(SELECT SUM($_tableApontamentoMaquina.$_abastecimentoQtde) FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 ) as $_consumoMedio '
     'FROM $_tableMaquina '
     'join $_tableFabricante on $_tableMaquina.$_idMachineManufacturer = $_tableFabricante.$_id '
     'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel'
@@ -276,6 +277,7 @@ class MachineHistoricoDao extends ChangeNotifier {
     );
 
     List<InfoApontamentoAcumRepository> apontamentos = toListInfoApontamentoAcum(result);
+
 
     return apontamentos;
   }
@@ -312,9 +314,9 @@ class MachineHistoricoDao extends ChangeNotifier {
           row[_hrmetroAtualAbastecimento],
           row[_hrmetroAtualizacao],
           row[_aptoDefeitoObs],
-          row[_ultimoAbastecimento].toString()
-          // row[_horimetroAtual],
-          // row[_consumoMedio],
+          row[_ultimoAbastecimento].toString(),
+          row[_horimetroAtual].toString(),
+          row[_consumoMedio].toString()//,
           // row[_custoHorario]
       );
 
@@ -325,5 +327,5 @@ class MachineHistoricoDao extends ChangeNotifier {
 
 
   }
-  notifyListeners();
+
 }

@@ -99,6 +99,7 @@ class MachinesList extends StatelessWidget {
 class _machineItem extends StatefulWidget {
   final InfoApontamentoAcumRepository machine;
 
+
   _machineItem(this.machine);
 
   @override
@@ -110,6 +111,7 @@ class __machineItemState extends State<_machineItem> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -168,7 +170,17 @@ class __machineItemState extends State<_machineItem> {
                                   // contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                   leading: Icon(Icons.local_gas_station),
                                   title: Text('Último Abastecimento'),
-                                  subtitle: Text('305.65 Lts'),
+                                  subtitle: (widget.machine.ultimoAbastecimento !=
+                                      'null')
+                                      ? Text(
+                                      //patterNumber(
+                                      //int.parse(
+                                          widget.machine.ultimoAbastecimento.toString()
+                                      //)
+                                      //)
+                                      +
+                                      ' Lts')
+                                      : Text('N/D'),
                                   //trailing: Text('305.65 Lts'),
                                   isThreeLine: false),
                               ListTile(
@@ -178,11 +190,8 @@ class __machineItemState extends State<_machineItem> {
                                 leading: Icon(Icons.access_time),
                                 title: Text('Horímetro '),
 
-                                subtitle: (widget.machine.ultimoAbastecimento !=
-                                        'null')
-                                    ? Text(patterNumber(int.parse(widget
-                                            .machine.ultimoAbastecimento)) +
-                                        ' h')
+                                subtitle: (widget.machine.horimetroAtual != 'null')
+                                    ? Text(widget.machine.horimetroAtual +' h')
                                     : Text('N/D'),
                                 //trailing: Text('4.500h'),
                                 isThreeLine: false,
@@ -193,7 +202,9 @@ class __machineItemState extends State<_machineItem> {
                                 //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                 leading: Icon(Icons.agriculture),
                                 title: Text('Consumo Médio'),
-                                subtitle: Text('5,6 L/h'),
+                                subtitle: (widget.machine.consumoMedio !='null')?
+                                Text('-')//patterNumber(int.parse(widget.machine.consumoMedio)//  ) + ' h')
+                                    : Text('N/D'),
                                 //trailing: Text('5,6 L/h'),
                                 isThreeLine: false,
                               ),
@@ -205,7 +216,7 @@ class __machineItemState extends State<_machineItem> {
                                   Icons.monetization_on,
                                 ),
                                 title: Text('Custo Horário'),
-                                subtitle: Text('R\$\ 150,00 /h'),
+                                subtitle: Text(' - '),
                                 //trailing: Text('R\$\ 150,00 /h'),
                                 isThreeLine: false,
                               ),
@@ -215,7 +226,7 @@ class __machineItemState extends State<_machineItem> {
                                 //textDirection: ,
                                 children: [
                                   TextButton(
-                                    child: Text('Ver Apontamentos'),
+                                    child: Text('Ver Apontamentos',),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
