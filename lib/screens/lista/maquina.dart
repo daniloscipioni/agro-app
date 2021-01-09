@@ -19,7 +19,7 @@ class ListaMaquinas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _machinesList(),
+      body: _machinesList(), //Tabs(),
       drawer: MenuHamburger(),
       appBar: AppBar(
         title: Text(_title),
@@ -107,116 +107,213 @@ class _machineItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        decoration: new BoxDecoration(
-            color: Colors.green,
-            borderRadius: new BorderRadius.only(
-              topLeft: const Radius.circular(10.0),
-              topRight: const Radius.circular(10.0),
-              bottomRight: const Radius.circular(10.0),
-              bottomLeft: const Radius.circular(10.0),
-            )),
-        child: ExpansionTile(
-          title: machine.mainTitle() != null
-              ? Text(
-                  machine.mainTitle(),
-                  style: const TextStyle(color: Colors.white, fontSize: 18),
-                )
-              : null,
-          children: [
-            Card(
-              clipBehavior: Clip.antiAlias,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.zero,
-                    topRight: Radius.zero,
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10)),
-                side: BorderSide(
-                  color: Colors.green[300],
-                  width: 1.0,
-                ),
-              ),
-              child: Container(
-                child: SizedBox(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          child: Column(
-                            children: <Widget>[
-                              ListTile(
-                                  visualDensity: VisualDensity(
-                                      horizontal: 0, vertical: -4),
-                                  leading: Icon(Icons.local_gas_station),
-                                  title: Text(_ultimoAbastecimento),
-                                  subtitle: Text(
-                                      machine.ultimoAbastecimentoToString()),
-                                  isThreeLine: false),
-                              ListTile(
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -4),
-                                leading: Icon(Icons.access_time),
-                                title: Text(_horimetro),
-                                subtitle:
-                                    Text(machine.horimetroAtualToString()),
-                                isThreeLine: false,
-                              ),
-                              ListTile(
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -4),
-                                leading: Icon(Icons.agriculture),
-                                title: Text(_consumoMedio),
-                                subtitle: Text(machine.consumoMedioToString()),
-                                isThreeLine: false,
-                              ),
-                              ListTile(
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -4),
-                                leading: Icon(
-                                  Icons.monetization_on,
-                                ),
-                                title: Text(_custoHorario),
-                                subtitle: Text('N/D'),
-                                isThreeLine: false,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButton(
-                                    child: Text(_verApontamentos),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) {
-                                          return new ListaHistoricoMaquina(
-                                              machine: machine);
-                                        }),
-                                      ).then(
-                                        (value) => Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                _machinesList(),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+        // decoration: new BoxDecoration(
+        //     color: Colors.green,
+        //     borderRadius: new BorderRadius.only(
+        //       topLeft: const Radius.circular(10.0),
+        //       topRight: const Radius.circular(10.0),
+        //       bottomRight: const Radius.circular(10.0),
+        //       bottomLeft: const Radius.circular(10.0),
+        //     )),
+        // child: ExpansionTile(
+        //   title: machine.mainTitle() != null ? Text(machine.mainTitle(),
+        //           style: const TextStyle(color: Colors.white, fontSize: 18),
+        //         )
+        //       : null,
+        //   children: [
+        //     Card(
+        //       clipBehavior: Clip.antiAlias,
+        //       color: Colors.white,
+        //       shape: RoundedRectangleBorder(
+        //         borderRadius: BorderRadius.only(
+        //             topLeft: Radius.zero,
+        //             topRight: Radius.zero,
+        //             bottomLeft: Radius.circular(10),
+        //             bottomRight: Radius.circular(10)),
+        //         side: BorderSide(
+        //           color: Colors.green[300],
+        //           width: 1.0,
+        //         ),
+        //       ),
+        //       child: Container(
+        //         child: SizedBox(
+        //           child: Row(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: <Widget>[
+        //               Expanded(
+        //                 child: Container(
+        //                   child: Column(
+        //                     children: <Widget>[
+        //                       ListTile(
+        //                           visualDensity: VisualDensity(
+        //                               horizontal: 0, vertical: -4),
+        //                           leading: Icon(Icons.local_gas_station),
+        //                           title: Text(_ultimoAbastecimento),
+        //                           subtitle: Text(
+        //                               machine.ultimoAbastecimentoToString()),
+        //                           isThreeLine: false),
+        //                       ListTile(
+        //                         visualDensity:
+        //                             VisualDensity(horizontal: 0, vertical: -4),
+        //                         leading: Icon(Icons.access_time),
+        //                         title: Text(_horimetro),
+        //                         subtitle:
+        //                             Text(machine.horimetroAtualToString()),
+        //                         isThreeLine: false,
+        //                       ),
+        //                       ListTile(
+        //                         visualDensity:
+        //                             VisualDensity(horizontal: 0, vertical: -4),
+        //                         leading: Icon(Icons.agriculture),
+        //                         title: Text(_consumoMedio),
+        //                         subtitle: Text(machine.consumoMedioToString()),
+        //                         isThreeLine: false,
+        //                       ),
+        //                       ListTile(
+        //                         visualDensity:
+        //                             VisualDensity(horizontal: 0, vertical: -4),
+        //                         leading: Icon(
+        //                           Icons.monetization_on,
+        //                         ),
+        //                         title: Text(_custoHorario),
+        //                         subtitle: Text('N/D'),
+        //                         isThreeLine: false,
+        //                       ),
+        //                       Row(
+        //                         mainAxisAlignment: MainAxisAlignment.end,
+        //                         children: [
+        //                           TextButton(
+        //                             child: Text(_verApontamentos),
+        //                             onPressed: () {
+        //                               Navigator.of(context).push(
+        //                                 MaterialPageRoute(builder: (context) {
+        //                                   return new ListaHistoricoMaquina(
+        //                                       machine: machine);
+        //                                 }),
+        //                               ).then(
+        //                                 (value) => Navigator.pushReplacement(
+        //                                   context,
+        //                                   MaterialPageRoute(
+        //                                     builder: (context) =>
+        //                                         _machinesList(),
+        //                                   ),
+        //                                 ),
+        //                               );
+        //                             },
+        //                           ),
+        //                         ],
+        //                       ),
+        //                     ],
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        child: InkWell(
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          machine.mainTitle(),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                      ),
+                      )
                     ],
                   ),
-                ),
+                  _rowItemAcumulado(Icons.local_gas_station,_ultimoAbastecimento,machine.ultimoAbastecimentoToString()),
+                  _rowItemAcumulado(Icons.access_time,_horimetro,machine.horimetroAtualToString()),
+                  _rowItemAcumulado(Icons.agriculture,_consumoMedio,machine.consumoMedioToString()),
+                  _rowItemAcumulado(Icons.monetization_on,_custoHorario,'N/D'),
+
+
+                ],
               ),
             ),
-          ],
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) {
+                return new ListaHistoricoMaquina(machine: machine);
+              }),
+            ).then((value) => Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => ListaMaquinas())));
+          },
         ),
       ),
     ); //;
+  }
+
+  Row _rowItemAcumulado(IconData icon,String title, String value) {
+    return Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      child: Icon(icon, color: Colors.grey[600],),
+                    ),
+                    Expanded(flex: 3,child: Text(title)),
+                    Expanded(flex: 1,child: Text(value))
+                  ],
+                );
+  }
+}
+
+class Tabs extends StatefulWidget {
+  @override
+  _RoomTabsState createState() => _RoomTabsState();
+}
+
+class _RoomTabsState extends State<Tabs> with TickerProviderStateMixin {
+  var _scrollViewController;
+  var _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollViewController = ScrollController();
+    _tabController = TabController(vsync: this, length: 5);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return NestedScrollView(
+      controller: _scrollViewController,
+      headerSliverBuilder: (context, bool) => [
+        SliverAppBar(
+          bottom: TabBar(
+            isScrollable: true,
+            controller: _tabController,
+            tabs: [
+              Tab(text: "Trator"),
+              Tab(text: "Colheitadeira"),
+              Tab(text: "Plantadeira"),
+              Tab(text: "Pulverizador"),
+              Tab(text: "Implemento"),
+            ],
+          ),
+        ),
+      ],
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Text("test"),
+          Text("test"),
+          Text("test"),
+          Text("test"),
+          Text("test"),
+        ],
+      ),
+    );
   }
 }
