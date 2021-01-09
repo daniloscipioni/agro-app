@@ -168,7 +168,7 @@ class _machineItem extends StatelessWidget {
                                     VisualDensity(horizontal: 0, vertical: -4),
                                 leading: Icon(Icons.agriculture),
                                 title: Text(_consumoMedio),
-                                subtitle: Text('N/D'),
+                                subtitle: Text(machine.consumoMedioToString()),
                                 isThreeLine: false,
                               ),
                               ListTile(

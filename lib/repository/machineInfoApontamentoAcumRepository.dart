@@ -29,7 +29,7 @@ class InfoApontamentoAcumRepository {
   String _aptoDefeitoObs;
   double _ultimoAbastecimento;
   int _horimetroAtual;
-  String _consumoMedio;
+  double _consumoMedio;
 
   // String _custoHorario;
 
@@ -60,7 +60,7 @@ class InfoApontamentoAcumRepository {
     this._aptoDefeitoObs,
     this._ultimoAbastecimento,
     this._horimetroAtual,
-    //this._consumoMedio,
+    this._consumoMedio,
     // this._custoHorario
   );
 
@@ -120,17 +120,25 @@ class InfoApontamentoAcumRepository {
     }
   }
 
+  String consumoMedioToString() {
+    if (consumoMedio != null) {
+      return '${patterNumberDouble(consumoMedio)} L/h';
+    } else {
+      return 'N/D';
+    }
+  }
+  
   // String get custoHorario => _custoHorario;
   //
   // set custoHorario(String value) {
   //   _custoHorario = value;
   // }
   //
-  // String get consumoMedio => _consumoMedio;
-  //
-  // set consumoMedio(String value) {
-  //   _consumoMedio = value;
-  // }
+  double get consumoMedio => _consumoMedio;
+
+  set consumoMedio(double value) {
+    _consumoMedio = value;
+  }
 
   int get horimetroAtual => _horimetroAtual;
 

@@ -269,7 +269,9 @@ class MachineHistoricoDao{
     ' $_tankCapacity, '
     '(SELECT $_tableApontamentoMaquina.$_abastecimentoQtde FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date desc LIMIT 1) as $_ultimoAbastecimento, '
     '(SELECT $_tableApontamentoMaquina.$_hrmetroAtualAbastecimento FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date desc LIMIT 1) as $_horimetroAtual, '
-    '(SELECT SUM($_tableApontamentoMaquina.$_abastecimentoQtde) FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 ) as $_consumoMedio '
+    '((SELECT $_tableApontamentoMaquina.$_hrmetroAtualAbastecimento FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date DESC) '
+    '- (SELECT $_tableApontamentoMaquina.$_hrmetroAtualAbastecimento FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date ASC)) '
+    '/ (SELECT SUM($_tableApontamentoMaquina.$_abastecimentoQtde) FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date)  as $_consumoMedio '
     'FROM $_tableMaquina '
     'join $_tableFabricante on $_tableMaquina.$_idMachineManufacturer = $_tableFabricante.$_id '
     'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel'
@@ -315,8 +317,8 @@ class MachineHistoricoDao{
           row[_hrmetroAtualizacao],
           row[_aptoDefeitoObs],
           row[_ultimoAbastecimento],
-          row[_horimetroAtual]//,
-          //row[_consumoMedio]//,
+          row[_horimetroAtual],
+          row[_consumoMedio]//,
           // row[_custoHorario]
       );
 
