@@ -314,9 +314,9 @@ class MachineHistoricoDao{
           row[_hrmetroAtualAbastecimento],
           row[_hrmetroAtualizacao],
           row[_aptoDefeitoObs],
-          row[_ultimoAbastecimento].toString(),
-          row[_horimetroAtual].toString(),
-          row[_consumoMedio].toString()//,
+          row[_ultimoAbastecimento],
+          row[_horimetroAtual]//,
+          //row[_consumoMedio]//,
           // row[_custoHorario]
       );
 

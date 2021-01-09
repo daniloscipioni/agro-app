@@ -20,7 +20,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
 
   MachineHistoricoDao _historicoDao = MachineHistoricoDao();
   final TextEditingController _defeitoObservacaoController =   TextEditingController();
-  String tipoDefeitoDropdownValue = 'Tipo de defeito';
+  String tipoDefeitoDropdownValue = 'Defeito Mecânico';
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +118,7 @@ class _formularioApontarDefeitoState extends State<FormularioApontarDefeito> wit
                         tipoDefeitoDropdownValue = newValue;
                       });
                     },
-                    items: <String>['Tipo de defeito','Defeito Mecânico', 'Defeito Elétrico','Defeito Hidráulico', 'Defeito Pneus', 'Outros']
+                    items: <String>['Defeito Mecânico', 'Defeito Elétrico','Defeito Hidráulico', 'Defeito Pneus', 'Outros']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

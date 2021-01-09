@@ -1,4 +1,6 @@
+import 'package:bavaresco/components/number_format.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class InfoApontamentoAcumRepository {
   int _id;
@@ -25,45 +27,97 @@ class InfoApontamentoAcumRepository {
   int _hrmetroAtualAbastecimento;
   int _hrmetroAtualizacao;
   String _aptoDefeitoObs;
-  String _ultimoAbastecimento;
-  String _horimetroAtual;
+  double _ultimoAbastecimento;
+  int _horimetroAtual;
   String _consumoMedio;
+
   // String _custoHorario;
 
-
   InfoApontamentoAcumRepository(
-      this._id,
-      this._machineName,
-      this._yearManufacture,
-      this._serialNumber,
-      this._motor,
-      this._power,
-      this._value,
-      this._fuelTank,
-      this._machineManufacturer,
-      this._machineModel,
-      this._motorized,
-      this._fuelType,
-      this._tankCapacity,
-      this._description,
-      this._idHistoricType,
-      this._idMachine,
-      this._user,
-      this.date,
-      this._infoTanque,
-      this._aptoDefeitoTipo,
-      this._abastecimentoQtde,
-      this._hrmetroAtualAbastecimento,
-      this._hrmetroAtualizacao,
-      this._aptoDefeitoObs,
-      this._ultimoAbastecimento,
-      this._horimetroAtual,
-      this._consumoMedio,
-      // this._custoHorario
-      );
+    this._id,
+    this._machineName,
+    this._yearManufacture,
+    this._serialNumber,
+    this._motor,
+    this._power,
+    this._value,
+    this._fuelTank,
+    this._machineManufacturer,
+    this._machineModel,
+    this._motorized,
+    this._fuelType,
+    this._tankCapacity,
+    this._description,
+    this._idHistoricType,
+    this._idMachine,
+    this._user,
+    this.date,
+    this._infoTanque,
+    this._aptoDefeitoTipo,
+    this._abastecimentoQtde,
+    this._hrmetroAtualAbastecimento,
+    this._hrmetroAtualizacao,
+    this._aptoDefeitoObs,
+    this._ultimoAbastecimento,
+    this._horimetroAtual,
+    //this._consumoMedio,
+    // this._custoHorario
+  );
 
-  String mainTitle(){
-    return '$_machineName - $_machineManufacturer - $_machineModel' ;
+  String mainTitle() {
+    return '$_machineName - $_machineManufacturer - $_machineModel';
+  }
+
+  String ultimoAbastecimentoToString() {
+    if (ultimoAbastecimento != null) {
+      return '${patterNumberDouble(ultimoAbastecimento)} lts';
+    } else {
+      return 'N/D';
+    }
+  }
+
+  String horimetroAtualToString() {
+    if (horimetroAtual != null) {
+      return '${patterNumber(horimetroAtual)} h';
+    } else {
+      return 'N/D';
+    }
+  }
+
+  String anoFabricacaoToString() {
+    if (DateTime.now().year - yearManufacture == 0 && (yearManufacture != 0)) {
+      return " - ";
+    } else {
+      String value = ((DateTime.now().year - yearManufacture)).toString();
+
+      return (yearManufacture.toString() + ' (' + value + ' anos)').toString();
+    }
+  }
+
+  String serialNumberToString() {
+    if (serialNumber != '') {
+      return serialNumber;
+    } else {
+      return ' - ';
+    }
+  }
+
+  String valorToString() {
+    if (value != null) {
+      return NumberFormat.currency(locale: 'pt', symbol: 'R\$')
+          .format(value)
+          .toString();
+    } else {
+      return ' - ';
+    }
+  }
+
+  String motorizedToString() {
+    if (motorized != 0) {
+      return tankCapacity.round().toString() + ' lts';
+    } else {
+      return ' - ';
+    }
   }
 
   // String get custoHorario => _custoHorario;
@@ -72,21 +126,21 @@ class InfoApontamentoAcumRepository {
   //   _custoHorario = value;
   // }
   //
-  String get consumoMedio => _consumoMedio;
+  // String get consumoMedio => _consumoMedio;
+  //
+  // set consumoMedio(String value) {
+  //   _consumoMedio = value;
+  // }
 
-  set consumoMedio(String value) {
-    _consumoMedio = value;
-  }
+  int get horimetroAtual => _horimetroAtual;
 
-  String get horimetroAtual => _horimetroAtual;
-
-  set horimetroAtual(String value) {
+  set horimetroAtual(int value) {
     _horimetroAtual = value;
   }
 
-  String get ultimoAbastecimento => _ultimoAbastecimento;
+  double get ultimoAbastecimento => _ultimoAbastecimento;
 
-  set ultimoAbastecimento(String value) {
+  set ultimoAbastecimento(double value) {
     _ultimoAbastecimento = value;
   }
 
@@ -227,5 +281,4 @@ class InfoApontamentoAcumRepository {
   set id(int value) {
     _id = value;
   }
-
 }

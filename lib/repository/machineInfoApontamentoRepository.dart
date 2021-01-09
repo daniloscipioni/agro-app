@@ -1,3 +1,6 @@
+import 'package:bavaresco/components/data_atual.dart';
+import 'package:bavaresco/components/number_format.dart';
+
 class InfoApontamentoRepository {
  // int _id;
   String _description;
@@ -17,6 +20,19 @@ class InfoApontamentoRepository {
   // set id(int value) {
   //   _id = value;
   // }
+
+  String abastecimentoQtdeToString() {
+    return '${patterNumberDouble(abastecimentoQtde)} lts';
+  }
+
+  String horimetroAtualAbastecimentoToString() {
+    return '${patterNumber(hrmetroAtualAbastecimento)} h';
+  }
+
+  String dataAtualToString() {
+    return dataAtual(date).toString();
+  }
+
 
   String get description => _description;
 

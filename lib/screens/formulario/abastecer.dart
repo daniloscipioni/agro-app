@@ -1,15 +1,9 @@
-import 'package:bavaresco/components/data_atual.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/models/historico/historic_info.dart';
-import 'package:bavaresco/models/maquina/InfoMachine.dart';
 import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
-import 'package:bavaresco/repository/machineRepository.dart';
-import 'package:bavaresco/screens/lista/historico.dart';
-import 'package:bavaresco/screens/lista/maquina.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 
 class FormularioAbastecer extends StatefulWidget {
   final InfoApontamentoAcumRepository machine;
@@ -38,12 +32,6 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
       ),
       body: Column(
         children: [
-          //  Card(
-          //   child:
-          //Container(
-          //padding: const EdgeInsets.symmetric(vertical: 0.0),
-          // child:
-
           SizedBox(
             height: 90,
             child: Row(
@@ -91,9 +79,6 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                               children: [],
                             ),
                           )
-                          // ],
-                          // ),
-                          // ),
                         ],
                       ),
                     ),
@@ -102,9 +87,6 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
               ],
             ),
           ),
-
-          //  ),
-          //  ),
           Divider(
             color: Colors.grey,
             height: 2,
@@ -175,11 +157,16 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                       controller: _horimetroAtualController,
                       // ignore: missing_return
                       validator: (value) {
+                         int initialValue = 0;
+
+                         if(widget.machine.horimetroAtual != null){
+                           initialValue = widget.machine.horimetroAtual;
+                         }
+
                         if (value.isEmpty || (!isNumber(value.replaceAll(',', '')))) {
                           return 'Valor Inválido';
                         }
-
-                        if (int.parse(value) <= int.parse(widget.machine.horimetroAtual.toString())) {
+                        if (int.parse(value) <= initialValue) {
                           return 'Horímetro Informado menor ou igual que horímetro anterior';
                         }
 
@@ -228,12 +215,6 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
                         } catch (e) {
                           debugPrint(e.toString());
                         }
-
-                        //Navigator.of(context).pop();
-                        //final String name = _nameController.text;
-                        //final int accountNumber = int.tryParse(_accountNumberController.text);
-                        //final Contact newContact = Contact(0, name, accountNumber);
-                        // _dao.save(newContact).then((id) => Navigator.pop(context));
                       },
                     ),
                   ],
@@ -243,21 +224,11 @@ class _formularioAbastecerState extends State<FormularioAbastecer>
           ),
         ],
       ),
-      //floatingActionButton: buildSpeedDial(),
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(
-      //     Icons.add,
-      //     color: Colors.white,
-      //   ),
-      //   onPressed: () {
-      //     _settingModalBottomSheet(context);
-      //     print('lista');
-      //   },
-      // ),
     );
   }
-} // Function to validate the number
+}
 
+// Function to validate the number
 bool isNumber(String value) {
 
   if (value == null) {

@@ -1,11 +1,15 @@
-import 'package:bavaresco/components/number_format.dart';
 import 'package:bavaresco/database/machine_dao.dart';
 import 'package:bavaresco/database/machine_historico_dao.dart';
 import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/screens/lista/historico.dart';
 import 'package:flutter/material.dart';
-
 import '../menu.dart';
+
+final String _ultimoAbastecimento = 'Último Abastecimento';
+final String _horimetro = 'Horímetro';
+final String _consumoMedio = 'Consumo Medio';
+final String _custoHorario = 'Custo Horário';
+final String _verApontamentos = 'Ver Apontamentos';
 
 class ListaMaquinas extends StatelessWidget {
   final MachineDao _dao = MachineDao();
@@ -15,7 +19,7 @@ class ListaMaquinas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MachinesList(),
+      body: _machinesList(),
       drawer: MenuHamburger(),
       appBar: AppBar(
         title: Text(_title),
@@ -42,8 +46,7 @@ class ListaMaquinas extends StatelessWidget {
   }
 }
 
-class MachinesList extends StatelessWidget {
-
+class _machinesList extends StatelessWidget {
   final MachineHistoricoDao _daoAcum = MachineHistoricoDao();
 
   @override
@@ -52,7 +55,6 @@ class MachinesList extends StatelessWidget {
       body: FutureBuilder<List<InfoApontamentoAcumRepository>>(
         initialData: List(),
         //Traz as máquinas do banco local
-
         future: _daoAcum.findAllInfoApontamentoByMachineAcum(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -92,26 +94,16 @@ class MachinesList extends StatelessWidget {
         },
       ),
     );
-    // });
   }
 }
 
-class _machineItem extends StatefulWidget {
+class _machineItem extends StatelessWidget {
   final InfoApontamentoAcumRepository machine;
-
 
   _machineItem(this.machine);
 
   @override
-  __machineItemState createState() => __machineItemState();
-}
-
-class __machineItemState extends State<_machineItem> {
-  final MachineHistoricoDao _daoAcum = MachineHistoricoDao();
-
-  @override
   Widget build(BuildContext context) {
-    
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -123,21 +115,13 @@ class __machineItemState extends State<_machineItem> {
               bottomRight: const Radius.circular(10.0),
               bottomLeft: const Radius.circular(10.0),
             )),
-        // padding: EdgeInsets.all(8.0),
         child: ExpansionTile(
-          title: widget.machine.mainTitle() != null
+          title: machine.mainTitle() != null
               ? Text(
-                  widget.machine.mainTitle(),
-
-                  //maxLines: 5,
-                  style: const TextStyle(
-                      //fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 18),
+                  machine.mainTitle(),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 )
               : null,
-
-          //subtitle: Text(machine.machineManufacturer),
           children: [
             Card(
               clipBehavior: Clip.antiAlias,
@@ -154,9 +138,7 @@ class __machineItemState extends State<_machineItem> {
                 ),
               ),
               child: Container(
-                //padding: const EdgeInsets.symmetric(vertical: 5.0),
                 child: SizedBox(
-                  // height: 210,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -167,88 +149,62 @@ class __machineItemState extends State<_machineItem> {
                               ListTile(
                                   visualDensity: VisualDensity(
                                       horizontal: 0, vertical: -4),
-                                  // contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                   leading: Icon(Icons.local_gas_station),
-                                  title: Text('Último Abastecimento'),
-                                  subtitle: (widget.machine.ultimoAbastecimento !=
-                                      'null')
-                                      ? Text(
-                                      //patterNumber(
-                                      //int.parse(
-                                          widget.machine.ultimoAbastecimento.toString()
-                                      //)
-                                      //)
-                                      +
-                                      ' Lts')
-                                      : Text('N/D'),
-                                  //trailing: Text('305.65 Lts'),
+                                  title: Text(_ultimoAbastecimento),
+                                  subtitle: Text(
+                                      machine.ultimoAbastecimentoToString()),
                                   isThreeLine: false),
                               ListTile(
                                 visualDensity:
                                     VisualDensity(horizontal: 0, vertical: -4),
-                                //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                 leading: Icon(Icons.access_time),
-                                title: Text('Horímetro '),
-
-                                subtitle: (widget.machine.horimetroAtual != 'null')
-                                    ? Text(widget.machine.horimetroAtual +' h')
-                                    : Text('N/D'),
-                                //trailing: Text('4.500h'),
+                                title: Text(_horimetro),
+                                subtitle:
+                                    Text(machine.horimetroAtualToString()),
                                 isThreeLine: false,
                               ),
                               ListTile(
                                 visualDensity:
                                     VisualDensity(horizontal: 0, vertical: -4),
-                                //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                 leading: Icon(Icons.agriculture),
-                                title: Text('Consumo Médio'),
-                                subtitle: (widget.machine.consumoMedio !='null')?
-                                Text('-')//patterNumber(int.parse(widget.machine.consumoMedio)//  ) + ' h')
-                                    : Text('N/D'),
-                                //trailing: Text('5,6 L/h'),
+                                title: Text(_consumoMedio),
+                                subtitle: Text('N/D'),
                                 isThreeLine: false,
                               ),
                               ListTile(
                                 visualDensity:
                                     VisualDensity(horizontal: 0, vertical: -4),
-                                //contentPadding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 0.0),
                                 leading: Icon(
                                   Icons.monetization_on,
                                 ),
-                                title: Text('Custo Horário'),
-                                subtitle: Text(' - '),
-                                //trailing: Text('R\$\ 150,00 /h'),
+                                title: Text(_custoHorario),
+                                subtitle: Text('N/D'),
                                 isThreeLine: false,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                //crossAxisAlignment: CrossAxisAlignment.end,
-                                //textDirection: ,
                                 children: [
                                   TextButton(
-                                    child: Text('Ver Apontamentos',),
+                                    child: Text(_verApontamentos),
                                     onPressed: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(builder: (context) {
                                           return new ListaHistoricoMaquina(
-                                              machine: widget.machine);
+                                              machine: machine);
                                         }),
-                                      ).then((value) =>
-
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => ListaMaquinas(),
-                                              ),
-                                            ),
-
-                                            // _machineItem = _machineItem(widget.machine);
-                                        );
+                                      ).then(
+                                        (value) => Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                _machinesList(),
+                                          ),
+                                        ),
+                                      );
                                     },
                                   ),
                                 ],
                               ),
-                              // const SizedBox(width: 8),
                             ],
                           ),
                         ),

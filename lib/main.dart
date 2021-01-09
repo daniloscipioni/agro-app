@@ -1,8 +1,5 @@
-import 'package:bavaresco/models/maquina/InfoMachine.dart';
 import 'package:bavaresco/screens/lista/maquina.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:bavaresco/database/machine_historico_dao.dart';
 
 void main() {
   runApp(

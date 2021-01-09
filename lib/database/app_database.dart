@@ -86,7 +86,7 @@ Future<Database> getDatabase() async {
           _dao.saveMachine(Machine('TR-17',2013,'C144014',null,null,400000,null,1,4,8));
           _dao.saveMachine(Machine('TR-18',2013,'S353365303/D088023',null,null,400000,null,1,1,9));
           _dao.saveMachine(Machine('TR-19',2013,'S353361704/D113079',null,null,400000,null,1,1,9));
-          _dao.saveMachine(Machine('TR-2',1986,' ',null,null,25000,null,1,10,2));
+          _dao.saveMachine(Machine('TR-2',1986,'',null,null,25000,null,1,10,2));
           _dao.saveMachine(Machine('TR-20',2018,'WAM53023V00F05123',null,null,1200000,null,1,7,10));
           _dao.saveMachine(Machine('TR-21',2010,'T210275612',null,null,150000,null,1,1,7));
           _dao.saveMachine(Machine('TR-3',2001,'C06300A013255',null,null,60000,null,1,2,11));
@@ -113,17 +113,17 @@ Future<Database> getDatabase() async {
           _dao.saveMachine(Machine('PV-6',2014,'3020377501/AAAS0300KDC000678',null,null,380000,null,4,1,21));
           _dao.saveMachine(Machine('PV-1',2008,'NO4730X004096',null,null,280000,null,4,2,22));
           _dao.saveMachine(Machine('IM-12',2011,'00/1300',null,null,40000,null,5,8,23));
-          _dao.saveMachine(Machine('IM-14',2012,' ',null,null,8000,null,5,14,24));
+          _dao.saveMachine(Machine('IM-14',2012,'',null,null,8000,null,5,14,24));
           _dao.saveMachine(Machine('IM-15',2018,'2018/5075061',null,null,120000,null,5,15,25));
           _dao.saveMachine(Machine('IM-3',2016,'HEA-BF10009',null,null,100000,null,5,8,23));
-          _dao.saveMachine(Machine('IM-4',0,' ',null,null,350000,null,5,16,26));
+          _dao.saveMachine(Machine('IM-4',0,'',null,null,350000,null,5,16,26));
 
           _historicoDao.saveTipoApontamento(HistoricType(1, 'Abastecimento'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
           _historicoDao.saveTipoApontamento(HistoricType(2, 'Atualização Horímetro'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
           _historicoDao.saveTipoApontamento(HistoricType(3, 'Apontamento de Defeito'));//.then((id) => _historicoDao.findAllTipoApontamento().then((historicType) => debugPrint(historicType.toString())));
 
         },
-        version: 1,
+        version:1,
         onDowngrade: onDatabaseDowngradeDelete,
 
     );
