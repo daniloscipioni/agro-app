@@ -250,7 +250,7 @@ class MachineHistoricoDao{
   }
 
   //Lista todos os apontamentos por máquina acumulado
-  Future<List<InfoApontamentoAcumRepository>> findAllInfoApontamentoByMachineAcum()  async  {
+  Future<List<InfoApontamentoAcumRepository>> findAllInfoApontamentoByMachineAcum(int category)  async  {
     final Database db = await getDatabase();
     final List<Map<String, dynamic>> result = await db.rawQuery(
          'SELECT '
@@ -274,7 +274,8 @@ class MachineHistoricoDao{
     '/ (SELECT SUM($_tableApontamentoMaquina.$_abastecimentoQtde) FROM $_tableApontamentoMaquina WHERE $_tableApontamentoMaquina.$_idMachine = $_tableMaquina.$_id AND $_tableApontamentoMaquina.$_idHistoricType = 1 order by $_date)  as $_consumoMedio '
     'FROM $_tableMaquina '
     'join $_tableFabricante on $_tableMaquina.$_idMachineManufacturer = $_tableFabricante.$_id '
-    'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel'
+    'join $_tableModelo on $_tableModelo.$_id = $_tableMaquina.$_idModel '
+             'where $_tableMaquina.$_idMachineCategory =' +  category.toString()
 
     );
 
