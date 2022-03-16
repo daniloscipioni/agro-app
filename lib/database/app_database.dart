@@ -5,7 +5,6 @@ import 'package:bavaresco/models/maquina/category.dart';
 import 'package:bavaresco/models/maquina/machine.dart';
 import 'package:bavaresco/models/maquina/manufacturer.dart';
 import 'package:bavaresco/models/maquina/model.dart';
-import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

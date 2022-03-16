@@ -3,7 +3,6 @@ import 'package:bavaresco/models/maquina/category.dart';
 import 'package:bavaresco/models/maquina/machine.dart';
 import 'package:bavaresco/models/maquina/manufacturer.dart';
 import 'package:bavaresco/models/maquina/model.dart';
-import 'package:bavaresco/repository/machineInfoApontamentoAcumRepository.dart';
 import 'package:bavaresco/repository/machineRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqlite_api.dart';
